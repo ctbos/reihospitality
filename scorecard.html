@@ -27,8 +27,6 @@
   body { margin: 0; background: #f4efe6; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #241c15; }
   ::selection { background: #241c15; color: #f4efe6; }
 
-  .wrap { max-width: 820px; margin: 0 auto; padding: 0 40px; }
-
   /* Header */
   header { position: sticky; top: 0; z-index: 20; background: rgba(244,239,230,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid #e6ddcb; }
   .header-inner { max-width: 1160px; margin: 0 auto; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; }
@@ -40,6 +38,9 @@
   .progress-bar-wrap { background: #e6ddcb; height: 3px; }
   .progress-bar { height: 3px; background: #e8412b; width: 0%; transition: width .4s ease; }
 
+  /* Layout */
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 40px; }
+
   /* Hero */
   .hero { padding: 64px 40px 48px; max-width: 820px; margin: 0 auto; }
   .eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: #e8412b; margin-bottom: 20px; }
@@ -49,7 +50,18 @@
   .meta-item { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #a0978a; }
   .meta-item strong { display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0; color: #241c15; margin-top: 4px; }
 
-  /* Form sections */
+  /* Mode toggle */
+  .mode-toggle { background: #fff; border: 1px solid #e6ddcb; border-radius: 4px; padding: 28px 32px; margin-bottom: 24px; }
+  .mode-toggle-label { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; margin: 0 0 16px; }
+  .mode-toggle-label span { font-size: 13px; font-weight: 400; color: #6b6357; margin-left: 8px; }
+  .mode-opts { display: flex; gap: 10px; flex-wrap: wrap; }
+  .mode-opt { padding: 12px 24px; border: 1px solid #e6ddcb; border-radius: 3px; cursor: pointer; font-size: 14px; font-weight: 500; transition: all .15s; background: #f4efe6; color: #46413a; }
+  .mode-opt:hover { border-color: #241c15; }
+  .mode-opt.active { background: #241c15; color: #f4efe6; border-color: #241c15; }
+  .mode-opt .mode-sub { display: block; font-size: 11px; font-weight: 400; color: #a0978a; margin-top: 3px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; }
+  .mode-opt.active .mode-sub { color: #a89a80; }
+
+  /* Section blocks */
   .section-block { background: #fff; border: 1px solid #e6ddcb; border-radius: 4px; margin-bottom: 24px; overflow: hidden; }
   .section-header { padding: 28px 32px 24px; border-bottom: 1px solid #f1ece2; }
   .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #e8412b; margin-bottom: 10px; }
@@ -63,7 +75,7 @@
   .q-label { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: #241c15; margin-bottom: 6px; display: block; }
   .q-hint { font-size: 12px; line-height: 1.5; color: #a0978a; margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.04em; }
 
-  /* Callout box (educational) */
+  /* Callout */
   .callout { background: #f4efe6; border-left: 3px solid #e8412b; padding: 12px 16px; margin-bottom: 14px; border-radius: 0 3px 3px 0; }
   .callout p { font-size: 12px; line-height: 1.6; color: #46413a; margin: 0; }
   .callout strong { color: #241c15; }
@@ -74,28 +86,17 @@
   .option-label:hover { border-color: #241c15; background: #faf7f2; }
   .option-label input[type="radio"] { display: none; }
   .option-label.selected { border-color: #241c15; background: #f4efe6; }
-  .option-label.selected .radio-dot { background: #241c15; }
-  .radio-dot { width: 16px; height: 16px; border: 2px solid #cfc2ad; border-radius: 50%; flex-shrink: 0; margin-top: 1px; transition: background .15s, border-color .15s; display: flex; align-items: center; justify-content: center; }
-  .option-label.selected .radio-dot { border-color: #241c15; }
+  .radio-dot { width: 16px; height: 16px; border: 2px solid #cfc2ad; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: border-color .15s; }
+  .option-label.selected .radio-dot { border-color: #241c15; background: #241c15; }
   .radio-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #f4efe6; opacity: 0; transition: opacity .15s; }
   .option-label.selected .radio-dot::after { opacity: 1; }
   .option-text { font-size: 14px; color: #241c15; line-height: 1.4; flex: 1; }
   .option-sub { font-size: 12px; color: #6b6357; margin-top: 2px; display: block; }
 
-  /* Pre-open toggle */
-  .toggle-block { background: #fff; border: 1px solid #e6ddcb; border-radius: 4px; padding: 24px 32px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  .toggle-block p { font-size: 15px; font-weight: 600; margin: 0; flex: 1; }
-  .toggle-block span { font-size: 13px; color: #6b6357; display: block; font-weight: 400; margin-top: 3px; }
-  .toggle-opts { display: flex; gap: 8px; }
-  .toggle-opt { padding: 9px 18px; border: 1px solid #e6ddcb; border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all .15s; background: #fff; color: #46413a; }
-  .toggle-opt:hover { border-color: #241c15; }
-  .toggle-opt.active { background: #241c15; color: #f4efe6; border-color: #241c15; }
-
   /* Submit */
   .submit-row { text-align: center; padding: 16px 0 48px; }
   #calculateBtn { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.03em; color: #f4efe6; background: #241c15; border: none; padding: 18px 48px; border-radius: 3px; cursor: pointer; transition: background .15s; }
   #calculateBtn:hover { background: #000; }
-  #calculateBtn:disabled { opacity: .5; cursor: default; }
   .submit-note { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #a0978a; margin-top: 12px; }
 
   /* Results */
@@ -111,15 +112,13 @@
   .score-zone.risk { color: #e8412b; }
   .score-headline { font-size: 24px; font-weight: 700; letter-spacing: -0.03em; color: #f4efe6; margin: 0 0 10px; line-height: 1.2; }
   .score-summary { font-size: 14px; line-height: 1.65; color: #cfc2ad; margin: 0; }
-
-  /* Score bar */
   .score-bar-wrap { background: #3d3228; height: 6px; border-radius: 3px; margin-top: 20px; }
   .score-bar-fill { height: 6px; border-radius: 3px; transition: width 1s ease; }
   .fill-solid { background: #4caf7d; }
   .fill-attention { background: #f5a623; }
   .fill-risk { background: #e8412b; }
 
-  /* Section scores */
+  /* Section score cards */
   .section-scores { max-width: 820px; margin: 0 auto; padding: 0 40px; }
   .section-score-card { background: #fff; border: 1px solid #e6ddcb; border-radius: 4px; padding: 24px 28px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 20px; }
   .ss-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
@@ -131,8 +130,6 @@
   .ss-title { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; margin: 0 0 6px; }
   .ss-feedback { font-size: 13px; line-height: 1.6; color: #46413a; margin: 0; }
   .ss-score { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #a0978a; margin-left: auto; flex-shrink: 0; padding-top: 2px; }
-
-  /* Mini bar within section card */
   .ss-bar-wrap { background: #f1ece2; height: 4px; border-radius: 2px; margin-top: 12px; }
   .ss-bar-fill { height: 4px; border-radius: 2px; }
 
@@ -146,8 +143,6 @@
   .cta-primary:hover { background: #fff; }
   .cta-secondary { font-size: 13px; color: #a89a80; text-decoration: none; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; }
   .cta-secondary:hover { color: #f4efe6; }
-
-  /* Retake */
   .retake-row { text-align: center; padding-bottom: 48px; }
   .retake-btn { background: none; border: none; font-size: 13px; color: #a0978a; cursor: pointer; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-decoration: underline; }
   .retake-btn:hover { color: #241c15; }
@@ -161,23 +156,20 @@
   .footer-links a:hover { color: #f4efe6; }
   .footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #5a4f40; }
 
-  /* Validation */
-  .section-block.has-error { border-color: #e8412b; }
-  .error-msg { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #e8412b; letter-spacing: 0.08em; margin-top: 8px; display: none; }
-
-  /* Hidden section 4 */
-  #section4 { display: none; }
-
   @media (max-width: 720px) {
     .wrap, .hero, .section-scores, .result-cta, .result-header { padding-left: 20px !important; padding-right: 20px !important; }
-    .hero h1 { font-size: 36px; }
+    .hero h1 { font-size: 34px; }
+    .hero { padding: 40px 20px 32px; }
     .section-header, .section-body { padding-left: 20px; padding-right: 20px; }
     .score-display { flex-direction: column; gap: 20px; padding: 28px; }
     .score-number { font-size: 60px; }
     .cta-card { flex-direction: column; }
-    .toggle-block { flex-direction: column; align-items: flex-start; }
+    .mode-opts { flex-direction: column; }
+    .mode-opt { text-align: center; }
     .header-inner { padding: 18px 20px; }
     .footer-inner { padding: 28px 20px; }
+    .section-score-card { flex-wrap: wrap; }
+    .ss-score { margin-left: 0; }
   }
 </style>
 </head>
@@ -195,18 +187,15 @@
 </header>
 
 <!-- PROGRESS BAR -->
-<div class="progress-bar-wrap">
-  <div class="progress-bar" id="progressBar"></div>
-</div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
 
 <!-- HERO -->
 <div class="hero">
   <div class="eyebrow">FREE TOOL · FINANCIAL HEALTH SCORECARD</div>
   <h1>Is your restaurant's financial foundation solid?</h1>
-  <p>Answer 18 questions. Get an honest score across four areas: the numbers you should know, cash and leverage, your back-office systems, and — if you're pre-opening — whether your financial setup will survive contact with reality.</p>
+  <p id="heroDesc">Answer a few questions and get an honest score — no email, no pitch. The questions adapt based on whether you're pre-opening or already operating.</p>
   <div class="meta-row">
     <div class="meta-item">TIME TO COMPLETE<strong>~5 minutes</strong></div>
-    <div class="meta-item">QUESTIONS<strong>14–18 depending on stage</strong></div>
     <div class="meta-item">COST<strong>Free</strong></div>
   </div>
 </div>
@@ -214,249 +203,432 @@
 <!-- FORM -->
 <div class="wrap" id="scoreForm">
 
-  <!-- PRE-OPEN TOGGLE -->
-  <div class="toggle-block">
-    <p>Are you currently opening a new location?
-      <span>This adds a section on pre-opening financial setup.</span>
-    </p>
-    <div class="toggle-opts">
-      <button class="toggle-opt" id="toggleNo" onclick="setPreOpen(false)">Already open</button>
-      <button class="toggle-opt" id="toggleYes" onclick="setPreOpen(true)">Yes, pre-opening</button>
+  <!-- MODE TOGGLE -->
+  <div class="mode-toggle">
+    <p class="mode-toggle-label">Where are you right now? <span>This determines which questions you get.</span></p>
+    <div class="mode-opts">
+      <button class="mode-opt active" id="modeOpen" onclick="setMode('open')">
+        Already open
+        <span class="mode-sub">Actively operating</span>
+      </button>
+      <button class="mode-opt" id="modePreOpen" onclick="setMode('preopen')">
+        Pre-opening
+        <span class="mode-sub">In planning or build-out</span>
+      </button>
     </div>
   </div>
 
-  <!-- SECTION 1: THE NUMBERS -->
-  <div class="section-block" id="sec1">
-    <div class="section-header">
-      <div class="section-num">01 · THE NUMBERS</div>
-      <div class="section-title">What you should know cold</div>
-      <p class="section-desc">These are the metrics that separate operators who understand their business from operators who are surprised by their business.</p>
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- ALREADY-OPEN SECTIONS                           -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div id="openSections">
+
+    <!-- OPEN S1: THE NUMBERS -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">01 · THE NUMBERS</div>
+        <div class="section-title">What you should know cold</div>
+        <p class="section-desc">These are the metrics that separate operators who understand their business from operators who are surprised by it.</p>
+      </div>
+      <div class="section-body">
+
+        <div class="question">
+          <label class="q-label">Do you know your food cost percentage right now?</label>
+          <div class="q-hint">Food cost % = Cost of Goods Sold ÷ Food Revenue × 100</div>
+          <div class="callout"><p><strong>Benchmark:</strong> Casual dining 28–32% · Full service 30–35% · Fast casual 25–30%. If you're outside your range and don't know why, that's the issue.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q1" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I know it and it's within a healthy range for my concept</div></label>
+            <label class="option-label"><input type="radio" name="o_q1" value="2"><span class="radio-dot"></span><div class="option-text">Yes — I know it, but it's outside the benchmark range</div></label>
+            <label class="option-label"><input type="radio" name="o_q1" value="1"><span class="radio-dot"></span><div class="option-text">Roughly — I have a general sense but not a precise number</div></label>
+            <label class="option-label"><input type="radio" name="o_q1" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't track this regularly</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you know your labor cost percentage this month?</label>
+          <div class="q-hint">Labor cost % = Total labor (wages + taxes + benefits) ÷ Total Revenue × 100</div>
+          <div class="callout"><p><strong>Benchmark:</strong> 25–35% depending on concept and service model. The number alone isn't the issue — not knowing it is.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q2" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I know it and track it weekly or monthly</div></label>
+            <label class="option-label"><input type="radio" name="o_q2" value="2"><span class="radio-dot"></span><div class="option-text">Roughly — I have a ballpark but not a precise figure</div></label>
+            <label class="option-label"><input type="radio" name="o_q2" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't track labor cost as a percentage</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you know your prime cost — and what is it?</label>
+          <div class="q-hint">Prime cost = Food & beverage cost + Total labor. The single most important number in your P&L.</div>
+          <div class="callout"><p><strong>Benchmark:</strong> Under 60% is healthy. 60–65% is workable with tight control. Over 65% and you are fighting math every single week.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q3" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I know it and it's under 60%</div></label>
+            <label class="option-label"><input type="radio" name="o_q3" value="3"><span class="radio-dot"></span><div class="option-text">Yes — I know it and it's between 60–65%</div></label>
+            <label class="option-label"><input type="radio" name="o_q3" value="1"><span class="radio-dot"></span><div class="option-text">Yes — I know it, but it's over 65%</div></label>
+            <label class="option-label"><input type="radio" name="o_q3" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't calculate prime cost</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you produce and actually review a monthly P&L?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q4" value="5"><span class="radio-dot"></span><div class="option-text">Yes — every month, within 2 weeks of month-end</div></label>
+            <label class="option-label"><input type="radio" name="o_q4" value="2"><span class="radio-dot"></span><div class="option-text">Sometimes — it happens but not consistently</div></label>
+            <label class="option-label"><input type="radio" name="o_q4" value="1"><span class="radio-dot"></span><div class="option-text">My accountant handles it — I see it at tax time</div></label>
+            <label class="option-label"><input type="radio" name="o_q4" value="0"><span class="radio-dot"></span><div class="option-text">No — I run on gut and bank balance</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you know the weekly revenue you need to break even?</label>
+          <div class="callout"><p>Your break-even isn't just covering food and labor — it includes rent, utilities, insurance, loan payments, and every other fixed cost. If the number in your head doesn't include debt service, it's wrong.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q5" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I have a specific number and it includes debt service</div></label>
+            <label class="option-label"><input type="radio" name="o_q5" value="2"><span class="radio-dot"></span><div class="option-text">Roughly — I have a general sense but it's not a precise calculation</div></label>
+            <label class="option-label"><input type="radio" name="o_q5" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't have a break-even number</div></label>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="section-body">
 
-      <div class="question">
-        <label class="q-label">Do you know your food cost percentage right now?</label>
-        <div class="q-hint">Food cost % = Cost of Goods Sold ÷ Food Revenue × 100</div>
-        <div class="callout"><p><strong>Benchmark:</strong> Casual dining 28–32% · Full service 30–35% · Fast casual 25–30%. If you're outside your range and don't know why, that's the issue.</p></div>
-        <div class="options" id="q1">
-          <label class="option-label"><input type="radio" name="q1" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I know it and it's within a healthy range for my concept</div></label>
-          <label class="option-label"><input type="radio" name="q1" value="2"><span class="radio-dot"></span><div class="option-text">Yes — I know it, but it's outside the benchmark range</div></label>
-          <label class="option-label"><input type="radio" name="q1" value="1"><span class="radio-dot"></span><div class="option-text">Roughly — I have a general sense but not a precise number</div></label>
-          <label class="option-label"><input type="radio" name="q1" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't track this regularly</div></label>
-        </div>
+    <!-- OPEN S2: CASH & LEVERAGE -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">02 · CASH & LEVERAGE</div>
+        <div class="section-title">Operating cash flow vs. free cash flow</div>
+        <p class="section-desc">The most dangerous mistake in restaurant finance: your P&L shows profit but your bank account is shrinking. Knowing why is the difference between managing a business and being managed by it.</p>
       </div>
+      <div class="section-body">
 
-      <div class="question">
-        <label class="q-label">Do you know your labor cost percentage this month?</label>
-        <div class="q-hint">Labor cost % = Total labor (including taxes & benefits) ÷ Total Revenue × 100</div>
-        <div class="callout"><p><strong>Benchmark:</strong> 25–35% depending on concept and service model. Full service runs higher. The number alone isn't the issue — not knowing it is.</p></div>
-        <div class="options" id="q2">
-          <label class="option-label"><input type="radio" name="q2" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I know it and track it weekly or monthly</div></label>
-          <label class="option-label"><input type="radio" name="q2" value="2"><span class="radio-dot"></span><div class="option-text">Roughly — I have a ballpark but not a precise figure</div></label>
-          <label class="option-label"><input type="radio" name="q2" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't track labor cost as a percentage</div></label>
+        <div class="callout" style="margin-bottom:24px;">
+          <p><strong>Operating Cash Flow</strong> is what the restaurant generates from operations — revenue minus the day-to-day cost of running it. <strong>Free Cash Flow</strong> is what's left after debt service: SBA loans, equipment financing, investor returns. A restaurant can show positive operating cash flow and negative free cash flow. That gap is where operators get into trouble.</p>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Do you know your prime cost — and what is it?</label>
-        <div class="q-hint">Prime cost = Food & beverage cost + Total labor cost. The single most important number in your P&L.</div>
-        <div class="callout"><p><strong>Benchmark:</strong> Under 60% is healthy. 60–65% is workable with tight control. Over 65% and you are fighting math every single week.</p></div>
-        <div class="options" id="q3">
-          <label class="option-label"><input type="radio" name="q3" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I know it and it's under 60%</div></label>
-          <label class="option-label"><input type="radio" name="q3" value="3"><span class="radio-dot"></span><div class="option-text">Yes — I know it and it's between 60–65%</div></label>
-          <label class="option-label"><input type="radio" name="q3" value="1"><span class="radio-dot"></span><div class="option-text">Yes — I know it, but it's over 65%</div></label>
-          <label class="option-label"><input type="radio" name="q3" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't calculate prime cost</div></label>
+        <div class="question">
+          <label class="q-label">How many weeks of operating expenses do you have in cash right now?</label>
+          <div class="q-hint">Operating expenses = everything it costs to keep the doors open for one week, not including debt payments</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q6" value="10"><span class="radio-dot"></span><div class="option-text">8+ weeks<span class="option-sub">Healthy buffer — you can weather a slow month</span></div></label>
+            <label class="option-label"><input type="radio" name="o_q6" value="6"><span class="radio-dot"></span><div class="option-text">4–8 weeks<span class="option-sub">Adequate — manageable with close attention</span></div></label>
+            <label class="option-label"><input type="radio" name="o_q6" value="3"><span class="radio-dot"></span><div class="option-text">2–4 weeks<span class="option-sub">Tight — one bad week can create a cascade</span></div></label>
+            <label class="option-label"><input type="radio" name="o_q6" value="0"><span class="radio-dot"></span><div class="option-text">Under 2 weeks<span class="option-sub">At risk — this is a survival situation</span></div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Do you produce and actually review a monthly P&L?</label>
-        <div class="options" id="q4">
-          <label class="option-label"><input type="radio" name="q4" value="5"><span class="radio-dot"></span><div class="option-text">Yes — every month, within 2 weeks of month-end</div></label>
-          <label class="option-label"><input type="radio" name="q4" value="2"><span class="radio-dot"></span><div class="option-text">Sometimes — it happens but not consistently</div></label>
-          <label class="option-label"><input type="radio" name="q4" value="1"><span class="radio-dot"></span><div class="option-text">My accountant handles it — I see it at tax time</div></label>
-          <label class="option-label"><input type="radio" name="q4" value="0"><span class="radio-dot"></span><div class="option-text">No — I run on gut and bank balance</div></label>
+        <div class="question">
+          <label class="q-label">After your monthly debt payments, do you have positive free cash flow?</label>
+          <div class="q-hint">Debt payments = SBA loan, equipment financing, investor distributions, any fixed debt obligations</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q7" value="8"><span class="radio-dot"></span><div class="option-text">Yes — comfortably positive after all debt service</div></label>
+            <label class="option-label"><input type="radio" name="o_q7" value="4"><span class="radio-dot"></span><div class="option-text">Yes — but barely. It's close every month</div></label>
+            <label class="option-label"><input type="radio" name="o_q7" value="0"><span class="radio-dot"></span><div class="option-text">No — debt service is consuming my operating cash flow</div></label>
+            <label class="option-label"><input type="radio" name="o_q7" value="0"><span class="radio-dot"></span><div class="option-text">I don't separate operating cash flow from free cash flow</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Do you know the weekly revenue you need to break even?</label>
-        <div class="callout"><p>Your break-even isn't just covering food and labor — it includes rent, utilities, insurance, loan payments, and every other fixed and semi-fixed cost. If the number in your head doesn't include debt service, it's wrong.</p></div>
-        <div class="options" id="q5">
-          <label class="option-label"><input type="radio" name="q5" value="5"><span class="radio-dot"></span><div class="option-text">Yes — I have a specific number and it includes debt service</div></label>
-          <label class="option-label"><input type="radio" name="q5" value="2"><span class="radio-dot"></span><div class="option-text">Roughly — I have a general sense but it's not a precise calculation</div></label>
-          <label class="option-label"><input type="radio" name="q5" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't have a break-even number</div></label>
+        <div class="question">
+          <label class="q-label">Do you have a debt schedule?</label>
+          <div class="q-hint">A debt schedule lists every loan and financing obligation: lender, balance, interest rate, monthly payment, and maturity date.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q8" value="6"><span class="radio-dot"></span><div class="option-text">Yes — documented and reviewed regularly</div></label>
+            <label class="option-label"><input type="radio" name="o_q8" value="2"><span class="radio-dot"></span><div class="option-text">Sort of — I know what I owe but it's not formally tracked</div></label>
+            <label class="option-label"><input type="radio" name="o_q8" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't have a formal debt schedule</div></label>
+            <label class="option-label"><input type="radio" name="o_q8" value="6"><span class="radio-dot"></span><div class="option-text">I have no debt obligations</div></label>
+          </div>
         </div>
-      </div>
 
+        <div class="question">
+          <label class="q-label">Do you have a line of credit available if revenue drops?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q9" value="3"><span class="radio-dot"></span><div class="option-text">Yes — available and not fully drawn</div></label>
+            <label class="option-label"><input type="radio" name="o_q9" value="0"><span class="radio-dot"></span><div class="option-text">No — and I'd like to establish one</div></label>
+            <label class="option-label"><input type="radio" name="o_q9" value="0"><span class="radio-dot"></span><div class="option-text">No — and my cash position makes this urgent</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Are all vendor accounts current — nothing past due?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q10" value="3"><span class="radio-dot"></span><div class="option-text">Yes — all vendors are current</div></label>
+            <label class="option-label"><input type="radio" name="o_q10" value="1"><span class="radio-dot"></span><div class="option-text">Mostly — a few accounts are slightly past due</div></label>
+            <label class="option-label"><input type="radio" name="o_q10" value="0"><span class="radio-dot"></span><div class="option-text">No — several vendors are past due</div></label>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
 
-  <!-- SECTION 2: CASH & LEVERAGE -->
-  <div class="section-block" id="sec2">
-    <div class="section-header">
-      <div class="section-num">02 · CASH & LEVERAGE</div>
-      <div class="section-title">Operating cash flow vs. free cash flow</div>
-      <p class="section-desc">The most dangerous mistake in restaurant finance: your P&L shows profit but your bank account is shrinking. Knowing why is the difference between managing a business and being managed by it.</p>
+    <!-- OPEN S3: SYSTEMS -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">03 · SYSTEMS & INFRASTRUCTURE</div>
+        <div class="section-title">The back office holding it together</div>
+        <p class="section-desc">Your financial data is only as good as the system producing it. Most operators discover their books are wrong at the worst possible time — when they're applying for a loan, facing an audit, or trying to understand why they're out of cash.</p>
+      </div>
+      <div class="section-body">
+
+        <div class="question">
+          <label class="q-label">What are you using for bookkeeping?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q11" value="8"><span class="radio-dot"></span><div class="option-text">QuickBooks or dedicated accounting software — current and reconciled<span class="option-sub">Chart of accounts configured for the concept</span></div></label>
+            <label class="option-label"><input type="radio" name="o_q11" value="4"><span class="radio-dot"></span><div class="option-text">Spreadsheets — I manage it manually</div></label>
+            <label class="option-label"><input type="radio" name="o_q11" value="2"><span class="radio-dot"></span><div class="option-text">My accountant handles it — I don't see the books until tax time</div></label>
+            <label class="option-label"><input type="radio" name="o_q11" value="0"><span class="radio-dot"></span><div class="option-text">Nothing formal — I run off bank statements</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Are your books current within the last 30 days?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q12" value="4"><span class="radio-dot"></span><div class="option-text">Yes — reconciled and current within 30 days</div></label>
+            <label class="option-label"><input type="radio" name="o_q12" value="2"><span class="radio-dot"></span><div class="option-text">Within 60 days — a bit behind but reasonably current</div></label>
+            <label class="option-label"><input type="radio" name="o_q12" value="0"><span class="radio-dot"></span><div class="option-text">More than 60 days behind, or I'm not sure</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Are you running payroll through a dedicated payroll platform?</label>
+          <div class="q-hint">Toast Payroll, Gusto, ADP, Paychex, QuickBooks Payroll — any platform that handles tax filings automatically</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q13" value="4"><span class="radio-dot"></span><div class="option-text">Yes — on a platform that handles tax filings automatically</div></label>
+            <label class="option-label"><input type="radio" name="o_q13" value="0"><span class="radio-dot"></span><div class="option-text">No — I process payroll manually or informally</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you have a dedicated business bank account, completely separate from personal?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="o_q14" value="4"><span class="radio-dot"></span><div class="option-text">Yes — business and personal are fully separated</div></label>
+            <label class="option-label"><input type="radio" name="o_q14" value="0"><span class="radio-dot"></span><div class="option-text">No — there's some commingling</div></label>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="section-body">
 
-      <div class="callout" style="margin-bottom: 24px;">
-        <p><strong>Operating Cash Flow</strong> is the cash generated by running your restaurant — revenue minus the day-to-day cost of operating it (food, labor, rent, utilities). <strong>Free Cash Flow</strong> is what's actually left after debt service: your SBA loan, equipment financing, investor returns. A restaurant can show positive operating cash flow and negative free cash flow. That gap is where operators get into trouble.</p>
+  </div><!-- /openSections -->
+
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- PRE-OPEN SECTIONS                               -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div id="preopenSections" style="display:none;">
+
+    <!-- PREOPEN S1: FINANCIAL PLANNING -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">01 · FINANCIAL PLANNING & PROJECTIONS</div>
+        <div class="section-title">Do you know what you're opening into?</div>
+        <p class="section-desc">The financial model you build before you sign a lease will either protect you or haunt you. Most pre-opening operators have one — but most are missing the numbers that actually matter.</p>
       </div>
+      <div class="section-body">
 
-      <div class="question">
-        <label class="q-label">How many weeks of operating expenses do you have in cash right now?</label>
-        <div class="q-hint">Operating expenses = everything you spend to keep the doors open for one week, not including debt payments</div>
-        <div class="options" id="q6">
-          <label class="option-label"><input type="radio" name="q6" value="10"><span class="radio-dot"></span><div class="option-text">8+ weeks<span class="option-sub">Healthy buffer — you can weather a slow month</span></div></label>
-          <label class="option-label"><input type="radio" name="q6" value="6"><span class="radio-dot"></span><div class="option-text">4–8 weeks<span class="option-sub">Adequate — manageable with close attention</span></div></label>
-          <label class="option-label"><input type="radio" name="q6" value="3"><span class="radio-dot"></span><div class="option-text">2–4 weeks<span class="option-sub">Tight — one bad week can create a cascade</span></div></label>
-          <label class="option-label"><input type="radio" name="q6" value="0"><span class="radio-dot"></span><div class="option-text">Under 2 weeks<span class="option-sub">At risk — this is a survival situation</span></div></label>
+        <div class="question">
+          <label class="q-label">Do you have a complete pro forma P&L for your first 12 months?</label>
+          <div class="q-hint">A pro forma projects revenue, cost of goods, labor, and all operating expenses month by month. Not a napkin number — a working model.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q1" value="6"><span class="radio-dot"></span><div class="option-text">Yes — built with realistic assumptions, reviewed and stress-tested</div></label>
+            <label class="option-label"><input type="radio" name="p_q1" value="3"><span class="radio-dot"></span><div class="option-text">Yes — but it's high-level and probably optimistic</div></label>
+            <label class="option-label"><input type="radio" name="p_q1" value="1"><span class="radio-dot"></span><div class="option-text">Partially — I have revenue estimates but not a full model</div></label>
+            <label class="option-label"><input type="radio" name="p_q1" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't have a formal pro forma</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">After your monthly debt payments, do you have positive free cash flow?</label>
-        <div class="q-hint">Monthly debt = SBA loan, equipment financing, investor distributions, any other fixed debt obligations</div>
-        <div class="options" id="q7">
-          <label class="option-label"><input type="radio" name="q7" value="8"><span class="radio-dot"></span><div class="option-text">Yes — comfortably positive after all debt service</div></label>
-          <label class="option-label"><input type="radio" name="q7" value="4"><span class="radio-dot"></span><div class="option-text">Yes — but barely. It's close every month</div></label>
-          <label class="option-label"><input type="radio" name="q7" value="0"><span class="radio-dot"></span><div class="option-text">No — debt service is consuming my operating cash flow</div></label>
-          <label class="option-label"><input type="radio" name="q7" value="0"><span class="radio-dot"></span><div class="option-text">I don't separate operating cash flow from free cash flow</div></label>
+        <div class="question">
+          <label class="q-label">Does your break-even revenue target include monthly debt service?</label>
+          <div class="callout"><p>Most pre-opening models show a P&L break-even — the revenue needed to cover operating costs. The real break-even is higher, because it also has to cover your loan payments. If your model doesn't include debt service, you're working with the wrong number.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q2" value="7"><span class="radio-dot"></span><div class="option-text">Yes — debt service is built into my break-even calculation</div></label>
+            <label class="option-label"><input type="radio" name="p_q2" value="2"><span class="radio-dot"></span><div class="option-text">Partially — I've thought about it but haven't fully modeled it</div></label>
+            <label class="option-label"><input type="radio" name="p_q2" value="0"><span class="radio-dot"></span><div class="option-text">No — my break-even is based on operating expenses only</div></label>
+            <label class="option-label"><input type="radio" name="p_q2" value="0"><span class="radio-dot"></span><div class="option-text">I don't have a break-even target yet</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Do you have a debt schedule?</label>
-        <div class="q-hint">A debt schedule is a complete list of every loan and financing obligation: lender, balance, interest rate, monthly payment, and maturity date.</div>
-        <div class="options" id="q8">
-          <label class="option-label"><input type="radio" name="q8" value="6"><span class="radio-dot"></span><div class="option-text">Yes — I have a documented schedule and review it regularly</div></label>
-          <label class="option-label"><input type="radio" name="q8" value="2"><span class="radio-dot"></span><div class="option-text">Sort of — I know what I owe generally but it's not formally tracked</div></label>
-          <label class="option-label"><input type="radio" name="q8" value="0"><span class="radio-dot"></span><div class="option-text">No — I don't have a formal debt schedule</div></label>
-          <label class="option-label"><input type="radio" name="q8" value="6"><span class="radio-dot"></span><div class="option-text">I have no debt obligations</div></label>
+        <div class="question">
+          <label class="q-label">Have you stress-tested your projections at 70–75% of expected revenue?</label>
+          <div class="callout"><p>Most new restaurants don't hit their revenue projections in the first 6 months. Running the numbers at 70% of your target tells you how long you can survive a slow ramp — and whether your capital structure can handle it.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q3" value="6"><span class="radio-dot"></span><div class="option-text">Yes — I've modeled a downside scenario and know the impact</div></label>
+            <label class="option-label"><input type="radio" name="p_q3" value="2"><span class="radio-dot"></span><div class="option-text">Informally — I've thought about it but haven't run the numbers</div></label>
+            <label class="option-label"><input type="radio" name="p_q3" value="0"><span class="radio-dot"></span><div class="option-text">No — my model uses one revenue scenario</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Do you have a line of credit available if revenue drops?</label>
-        <div class="options" id="q9">
-          <label class="option-label"><input type="radio" name="q9" value="3"><span class="radio-dot"></span><div class="option-text">Yes — I have an available line of credit I haven't fully drawn</div></label>
-          <label class="option-label"><input type="radio" name="q9" value="0"><span class="radio-dot"></span><div class="option-text">No — and I'd like to establish one</div></label>
-          <label class="option-label"><input type="radio" name="q9" value="0"><span class="radio-dot"></span><div class="option-text">No — and my cash position makes this urgent</div></label>
+        <div class="question">
+          <label class="q-label">Have you built a costed menu — food cost % calculated per item?</label>
+          <div class="q-hint">Menu costing tells you what it actually costs to produce each dish and whether your pricing supports your target food cost %.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q4" value="6"><span class="radio-dot"></span><div class="option-text">Yes — full menu costed with target margins built in</div></label>
+            <label class="option-label"><input type="radio" name="p_q4" value="3"><span class="radio-dot"></span><div class="option-text">Partially — some items costed, working through the rest</div></label>
+            <label class="option-label"><input type="radio" name="p_q4" value="0"><span class="radio-dot"></span><div class="option-text">No — menu is set but not formally costed yet</div></label>
+            <label class="option-label"><input type="radio" name="p_q4" value="0"><span class="radio-dot"></span><div class="option-text">Menu is still being developed</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Are all vendor accounts current — nothing past due?</label>
-        <div class="options" id="q10">
-          <label class="option-label"><input type="radio" name="q10" value="3"><span class="radio-dot"></span><div class="option-text">Yes — all vendors are current</div></label>
-          <label class="option-label"><input type="radio" name="q10" value="1"><span class="radio-dot"></span><div class="option-text">Mostly — a few accounts are slightly past due</div></label>
-          <label class="option-label"><input type="radio" name="q10" value="0"><span class="radio-dot"></span><div class="option-text">No — several vendors are past due</div></label>
-        </div>
       </div>
-
     </div>
-  </div>
 
-  <!-- SECTION 3: SYSTEMS -->
-  <div class="section-block" id="sec3">
-    <div class="section-header">
-      <div class="section-num">03 · SYSTEMS & INFRASTRUCTURE</div>
-      <div class="section-title">The back office holding it together</div>
-      <p class="section-desc">Your financial data is only as good as the system producing it. Most operators discover their books are wrong at the worst possible time — when they're applying for a loan, facing an audit, or trying to understand why they're out of cash.</p>
+    <!-- PREOPEN S2: CAPITAL STRUCTURE -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">02 · CAPITAL STRUCTURE & WORKING CAPITAL</div>
+        <div class="section-title">How you're funding it — and what's left after</div>
+        <p class="section-desc">Being overleveraged going into an opening is the most common financial mistake in this industry. The build cost is only part of the problem. The gap between opening day and cash-flow-positive is where operators run out of money.</p>
+      </div>
+      <div class="section-body">
+
+        <div class="callout" style="margin-bottom:24px;">
+          <p><strong>Operating Cash Flow</strong> is what the restaurant will generate from running the business. <strong>Free Cash Flow</strong> is what's left after debt service — loan payments, equipment financing, investor obligations. Model both before you open, not after. The difference between the two is your real margin for error.</p>
+        </div>
+
+        <div class="question">
+          <label class="q-label">After the build-out is fully funded, how much operating capital will you have in the bank?</label>
+          <div class="callout"><p>This is the cash that covers payroll, food orders, rent, and every other bill from opening day until revenue catches up. Build costs almost always run over. Timelines almost always slip. Plan for both.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q5" value="10"><span class="radio-dot"></span><div class="option-text">6+ months of projected operating expenses<span class="option-sub">Strong position — you have room to ramp</span></div></label>
+            <label class="option-label"><input type="radio" name="p_q5" value="7"><span class="radio-dot"></span><div class="option-text">3–6 months<span class="option-sub">Workable — if the build comes in on budget and on time</span></div></label>
+            <label class="option-label"><input type="radio" name="p_q5" value="3"><span class="radio-dot"></span><div class="option-text">1–3 months<span class="option-sub">Thin — a delay or cost overrun puts you in crisis before you open</span></div></label>
+            <label class="option-label"><input type="radio" name="p_q5" value="0"><span class="radio-dot"></span><div class="option-text">Less than 1 month — or the build will consume most of our capital</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Have you calculated your projected monthly debt service and what % of projected revenue it represents?</label>
+          <div class="callout"><p>Monthly debt service over 10% of projected revenue is a warning sign. Over 15% is a structural problem that makes profitability very difficult regardless of how well the restaurant performs operationally.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q6" value="8"><span class="radio-dot"></span><div class="option-text">Yes — under 5% of projected monthly revenue</div></label>
+            <label class="option-label"><input type="radio" name="p_q6" value="5"><span class="radio-dot"></span><div class="option-text">Yes — 5–10% of projected monthly revenue</div></label>
+            <label class="option-label"><input type="radio" name="p_q6" value="2"><span class="radio-dot"></span><div class="option-text">Yes — 10–15% of projected monthly revenue</div></label>
+            <label class="option-label"><input type="radio" name="p_q6" value="0"><span class="radio-dot"></span><div class="option-text">Over 15%, or I haven't calculated this</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you have a complete debt schedule — every obligation, rate, payment, and maturity?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q7" value="7"><span class="radio-dot"></span><div class="option-text">Yes — every loan and financing obligation is documented</div></label>
+            <label class="option-label"><input type="radio" name="p_q7" value="3"><span class="radio-dot"></span><div class="option-text">Partially — I know what I owe but it's not formally laid out</div></label>
+            <label class="option-label"><input type="radio" name="p_q7" value="0"><span class="radio-dot"></span><div class="option-text">No — financing is still being figured out</div></label>
+            <label class="option-label"><input type="radio" name="p_q7" value="7"><span class="radio-dot"></span><div class="option-text">Self-funded — no debt obligations</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Do you have a line of credit in place or in process?</label>
+          <div class="q-hint">A line of credit pre-opening is much easier to get than post-opening. Banks lend on projections before you open; after, they lend on performance — which takes time to establish.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q8" value="5"><span class="radio-dot"></span><div class="option-text">Yes — line is approved and in place</div></label>
+            <label class="option-label"><input type="radio" name="p_q8" value="2"><span class="radio-dot"></span><div class="option-text">In process — applied or in conversation with a lender</div></label>
+            <label class="option-label"><input type="radio" name="p_q8" value="0"><span class="radio-dot"></span><div class="option-text">No — haven't pursued one yet</div></label>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="section-body">
 
-      <div class="question">
-        <label class="q-label">What are you using for bookkeeping?</label>
-        <div class="options" id="q11">
-          <label class="option-label"><input type="radio" name="q11" value="8"><span class="radio-dot"></span><div class="option-text">QuickBooks or dedicated accounting software — and it's current<span class="option-sub">Books are reconciled, chart of accounts is set up for the concept</span></div></label>
-          <label class="option-label"><input type="radio" name="q11" value="4"><span class="radio-dot"></span><div class="option-text">Spreadsheets — I manage it manually</div></label>
-          <label class="option-label"><input type="radio" name="q11" value="2"><span class="radio-dot"></span><div class="option-text">My accountant handles it — I don't see the books until tax time</div></label>
-          <label class="option-label"><input type="radio" name="q11" value="0"><span class="radio-dot"></span><div class="option-text">Nothing formal — I run off bank statements</div></label>
-        </div>
+    <!-- PREOPEN S3: BACK OFFICE SETUP -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">03 · BACK OFFICE SETUP</div>
+        <div class="section-title">The infrastructure before the doors open</div>
+        <p class="section-desc">These are the things that most operators treat as afterthoughts — and then spend their first year untangling. Setting them up right pre-opening takes days. Fixing them post-opening takes months.</p>
       </div>
+      <div class="section-body">
 
-      <div class="question">
-        <label class="q-label">Are your books current within the last 30 days?</label>
-        <div class="options" id="q12">
-          <label class="option-label"><input type="radio" name="q12" value="4"><span class="radio-dot"></span><div class="option-text">Yes — reconciled and current within 30 days</div></label>
-          <label class="option-label"><input type="radio" name="q12" value="2"><span class="radio-dot"></span><div class="option-text">Within 60 days — a bit behind but reasonably current</div></label>
-          <label class="option-label"><input type="radio" name="q12" value="0"><span class="radio-dot"></span><div class="option-text">More than 60 days behind, or I'm not sure</div></label>
+        <div class="question">
+          <label class="q-label">Have you formed your business entity?</label>
+          <div class="q-hint">LLC, S-Corp, or other structure — properly filed and with an operating agreement in place</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q9" value="4"><span class="radio-dot"></span><div class="option-text">Yes — entity formed, operating agreement in place</div></label>
+            <label class="option-label"><input type="radio" name="p_q9" value="2"><span class="radio-dot"></span><div class="option-text">In process — working with an attorney on it</div></label>
+            <label class="option-label"><input type="radio" name="p_q9" value="0"><span class="radio-dot"></span><div class="option-text">No — not yet formed</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Are you running payroll through a dedicated payroll platform?</label>
-        <div class="q-hint">Toast Payroll, Gusto, ADP, Paychex, QuickBooks Payroll — anything that handles tax filings automatically</div>
-        <div class="options" id="q13">
-          <label class="option-label"><input type="radio" name="q13" value="4"><span class="radio-dot"></span><div class="option-text">Yes — on a platform that handles tax filings automatically</div></label>
-          <label class="option-label"><input type="radio" name="q13" value="0"><span class="radio-dot"></span><div class="option-text">No — I process payroll manually or informally</div></label>
+        <div class="question">
+          <label class="q-label">Do you have a dedicated business bank account open?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q10" value="4"><span class="radio-dot"></span><div class="option-text">Yes — business account open and completely separate from personal</div></label>
+            <label class="option-label"><input type="radio" name="p_q10" value="0"><span class="radio-dot"></span><div class="option-text">No — not yet</div></label>
+          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="q-label">Do you have a dedicated business bank account — completely separate from personal?</label>
-        <div class="options" id="q14">
-          <label class="option-label"><input type="radio" name="q14" value="4"><span class="radio-dot"></span><div class="option-text">Yes — business and personal are fully separated</div></label>
-          <label class="option-label"><input type="radio" name="q14" value="0"><span class="radio-dot"></span><div class="option-text">No — there's some commingling</div></label>
+        <div class="question">
+          <label class="q-label">Have you set up accounting software with a restaurant-specific chart of accounts?</label>
+          <div class="q-hint">QuickBooks Online is the standard. A restaurant chart of accounts separates food cost, beverage cost, labor by type, and every cost center in a way that generic setups don't.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q11" value="8"><span class="radio-dot"></span><div class="option-text">Yes — software set up, chart of accounts configured for my concept</div></label>
+            <label class="option-label"><input type="radio" name="p_q11" value="3"><span class="radio-dot"></span><div class="option-text">Software selected, but setup isn't complete</div></label>
+            <label class="option-label"><input type="radio" name="p_q11" value="0"><span class="radio-dot"></span><div class="option-text">No — planning to handle this closer to opening</div></label>
+          </div>
         </div>
-      </div>
 
+        <div class="question">
+          <label class="q-label">Have you selected a payroll platform?</label>
+          <div class="q-hint">Toast Payroll, Gusto, ADP, Paychex, QuickBooks Payroll. Tip credit, overtime, and multi-rate payroll for restaurants is complicated — the platform matters.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q12" value="4"><span class="radio-dot"></span><div class="option-text">Yes — platform selected and ready for onboarding employees</div></label>
+            <label class="option-label"><input type="radio" name="p_q12" value="1"><span class="radio-dot"></span><div class="option-text">Evaluating options — haven't decided yet</div></label>
+            <label class="option-label"><input type="radio" name="p_q12" value="0"><span class="radio-dot"></span><div class="option-text">No — haven't gotten to this yet</div></label>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
 
-  <!-- SECTION 4: PRE-OPENING -->
-  <div class="section-block" id="section4">
-    <div class="section-header">
-      <div class="section-num">04 · PRE-OPENING FINANCIAL SETUP</div>
-      <div class="section-title">Before the doors open</div>
-      <p class="section-desc">The financial decisions you make before you open are harder to unwind than anything that happens after. Most operators get this section wrong — and feel it for years.</p>
+    <!-- PREOPEN S4: BUILD-OUT DISCIPLINE -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-num">04 · BUILD-OUT FINANCIAL DISCIPLINE</div>
+        <div class="section-title">Tracking the money before revenue exists</div>
+        <p class="section-desc">The period between signing a lease and opening the doors is the highest-risk financial window of the entire business. Every dollar out is a real dollar. Revenue is hypothetical. How you track the build determines how much you have left when you open.</p>
+      </div>
+      <div class="section-body">
+
+        <div class="question">
+          <label class="q-label">Do you have a detailed line-item startup cost budget?</label>
+          <div class="q-hint">Permits, design, construction, equipment, smallwares, POS, pre-opening labor, marketing, licenses, deposits, working capital — every category, not just a round number.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q13" value="7"><span class="radio-dot"></span><div class="option-text">Yes — every cost category itemized with realistic estimates</div></label>
+            <label class="option-label"><input type="radio" name="p_q13" value="3"><span class="radio-dot"></span><div class="option-text">General budget — major categories covered but not line-item detail</div></label>
+            <label class="option-label"><input type="radio" name="p_q13" value="0"><span class="radio-dot"></span><div class="option-text">No — working from a total number without a breakdown</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Are you actively tracking actuals against the budget as money goes out?</label>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q14" value="6"><span class="radio-dot"></span><div class="option-text">Yes — every payment is tracked against budget in real time</div></label>
+            <label class="option-label"><input type="radio" name="p_q14" value="2"><span class="radio-dot"></span><div class="option-text">Informally — I'm keeping track but not against a formal budget</div></label>
+            <label class="option-label"><input type="radio" name="p_q14" value="0"><span class="radio-dot"></span><div class="option-text">No — not tracking actuals against budget yet</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Have you built a week-by-week cash flow from lease signing to opening day?</label>
+          <div class="q-hint">This maps every dollar going out before a dollar comes in — construction draws, equipment deposits, pre-opening payroll, licensing fees, training costs. It tells you when you'll hit your lowest cash point and whether you have enough to get through it.</div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q15" value="6"><span class="radio-dot"></span><div class="option-text">Yes — week-by-week cash flow modeled through opening</div></label>
+            <label class="option-label"><input type="radio" name="p_q15" value="2"><span class="radio-dot"></span><div class="option-text">Partially — general timeline but not week-by-week cash mapping</div></label>
+            <label class="option-label"><input type="radio" name="p_q15" value="0"><span class="radio-dot"></span><div class="option-text">No — haven't modeled pre-opening cash flow</div></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="q-label">Have you set aside a contingency fund of at least 10% of your total build cost?</label>
+          <div class="callout"><p>Restaurant build-outs routinely run 10–20% over budget. A contingency fund isn't pessimism — it's the single most reliable predictor of whether you'll make it to opening day fully capitalized.</p></div>
+          <div class="options">
+            <label class="option-label"><input type="radio" name="p_q16" value="6"><span class="radio-dot"></span><div class="option-text">Yes — 15% or more set aside as contingency</div></label>
+            <label class="option-label"><input type="radio" name="p_q16" value="4"><span class="radio-dot"></span><div class="option-text">Yes — 10–15% contingency reserved</div></label>
+            <label class="option-label"><input type="radio" name="p_q16" value="1"><span class="radio-dot"></span><div class="option-text">Less than 10% — tight but something is set aside</div></label>
+            <label class="option-label"><input type="radio" name="p_q16" value="0"><span class="radio-dot"></span><div class="option-text">No contingency — budget is fully committed</div></label>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="section-body">
 
-      <div class="question">
-        <label class="q-label">Have you modeled debt service into your break-even revenue target?</label>
-        <div class="callout"><p>Most pre-opening financial models show a P&L break-even. The real break-even — the number you need to hit to actually have money left over after paying back what you borrowed — is higher. If your model doesn't include monthly loan payments, you're working with the wrong target.</p></div>
-        <div class="options" id="q15">
-          <label class="option-label"><input type="radio" name="q15" value="7"><span class="radio-dot"></span><div class="option-text">Yes — my break-even target includes all debt service</div></label>
-          <label class="option-label"><input type="radio" name="q15" value="2"><span class="radio-dot"></span><div class="option-text">Partially — I've thought about it but haven't fully modeled it</div></label>
-          <label class="option-label"><input type="radio" name="q15" value="0"><span class="radio-dot"></span><div class="option-text">No — my break-even is based on operating expenses only</div></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="q-label">After your build-out is fully funded, will you have at least 3 months of operating expenses in cash reserves?</label>
-        <div class="callout"><p>This is the gap that kills new restaurants. The build costs more than projected, takes longer than expected, and soft open revenue doesn't cover the bills. 3 months minimum — 6 is better.</p></div>
-        <div class="options" id="q16">
-          <label class="option-label"><input type="radio" name="q16" value="6"><span class="radio-dot"></span><div class="option-text">Yes — 3+ months of operating capital reserved after build-out</div></label>
-          <label class="option-label"><input type="radio" name="q16" value="2"><span class="radio-dot"></span><div class="option-text">1–2 months — tighter than I'd like</div></label>
-          <label class="option-label"><input type="radio" name="q16" value="0"><span class="radio-dot"></span><div class="option-text">No — build-out will consume most of our capital</div></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="q-label">Have you built a week-by-week cash flow from lease signing to opening day?</label>
-        <div class="q-hint">This maps every dollar out the door before a dollar comes in — construction draws, equipment deposits, pre-opening labor, licensing fees, marketing, training costs.</div>
-        <div class="options" id="q17">
-          <label class="option-label"><input type="radio" name="q17" value="6"><span class="radio-dot"></span><div class="option-text">Yes — I have a detailed pre-opening cash flow model</div></label>
-          <label class="option-label"><input type="radio" name="q17" value="2"><span class="radio-dot"></span><div class="option-text">Partially — I have a general budget but not week-by-week</div></label>
-          <label class="option-label"><input type="radio" name="q17" value="0"><span class="radio-dot"></span><div class="option-text">No — I have a budget but haven't mapped the timing of cash out</div></label>
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="q-label">Do you have a startup cost budget with actuals tracked against it?</label>
-        <div class="options" id="q18">
-          <label class="option-label"><input type="radio" name="q18" value="6"><span class="radio-dot"></span><div class="option-text">Yes — I have a line-item budget and I'm tracking actuals as they hit</div></label>
-          <label class="option-label"><input type="radio" name="q18" value="2"><span class="radio-dot"></span><div class="option-text">I have a budget, but I'm not formally tracking actuals yet</div></label>
-          <label class="option-label"><input type="radio" name="q18" value="0"><span class="radio-dot"></span><div class="option-text">No — working from a general number without a detailed breakdown</div></label>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  </div><!-- /preopenSections -->
 
   <!-- SUBMIT -->
   <div class="submit-row">
@@ -464,21 +636,21 @@
     <p class="submit-note">No email required. Results appear below.</p>
   </div>
 
-</div><!-- end form -->
+</div><!-- /scoreForm -->
+
 
 <!-- RESULTS -->
 <div id="results">
-
   <div class="result-header">
-    <div class="eyebrow" style="padding-top: 0;">YOUR RESULTS</div>
-    <div class="score-display" id="scoreDisplay">
+    <div class="eyebrow">YOUR RESULTS</div>
+    <div class="score-display">
       <div class="score-number" id="scoreNum">—<span>/100</span></div>
       <div class="score-right">
         <div class="score-zone" id="scoreZone"></div>
         <h2 class="score-headline" id="scoreHeadline"></h2>
         <p class="score-summary" id="scoreSummary"></p>
         <div class="score-bar-wrap">
-          <div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div>
+          <div id="scoreBarFill" class="score-bar-fill" style="width:0%"></div>
         </div>
       </div>
     </div>
@@ -502,7 +674,6 @@
   <div class="retake-row">
     <button class="retake-btn" onclick="retake()">Start over</button>
   </div>
-
 </div>
 
 <!-- FOOTER -->
@@ -519,20 +690,23 @@
 </footer>
 
 <script>
-  // ─── State ───────────────────────────────────────────────
-  let preOpen = false;
+  // ─── Mode ─────────────────────────────────────────────────
+  let currentMode = 'open';
 
-  // ─── Pre-open toggle ─────────────────────────────────────
-  function setPreOpen(val) {
-    preOpen = val;
-    document.getElementById('toggleYes').classList.toggle('active', val);
-    document.getElementById('toggleNo').classList.toggle('active', !val);
-    document.getElementById('section4').style.display = val ? 'block' : 'none';
+  function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('modeOpen').classList.toggle('active', mode === 'open');
+    document.getElementById('modePreOpen').classList.toggle('active', mode === 'preopen');
+    document.getElementById('openSections').style.display = mode === 'open' ? 'block' : 'none';
+    document.getElementById('preopenSections').style.display = mode === 'preopen' ? 'block' : 'none';
+    // Reset all selections in the hidden mode
+    const hidden = mode === 'open' ? 'preopenSections' : 'openSections';
+    document.querySelectorAll(`#${hidden} input[type="radio"]`).forEach(r => r.checked = false);
+    document.querySelectorAll(`#${hidden} .option-label`).forEach(l => l.classList.remove('selected'));
+    updateProgress();
   }
-  // default state
-  setPreOpen(false);
 
-  // ─── Radio styling ───────────────────────────────────────
+  // ─── Radio styling ────────────────────────────────────────
   document.querySelectorAll('.option-label').forEach(label => {
     label.addEventListener('click', function() {
       const radio = this.querySelector('input[type="radio"]');
@@ -546,162 +720,178 @@
     });
   });
 
-  // ─── Progress bar ─────────────────────────────────────────
+  // ─── Progress bar ──────────────────────────────────────────
+  const openQs    = ['o_q1','o_q2','o_q3','o_q4','o_q5','o_q6','o_q7','o_q8','o_q9','o_q10','o_q11','o_q12','o_q13','o_q14'];
+  const preopenQs = ['p_q1','p_q2','p_q3','p_q4','p_q5','p_q6','p_q7','p_q8','p_q9','p_q10','p_q11','p_q12','p_q13','p_q14','p_q15','p_q16'];
+
   function updateProgress() {
-    const questions = preOpen
-      ? ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16','q17','q18']
-      : ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14'];
-    const answered = questions.filter(q => document.querySelector(`input[name="${q}"]:checked`)).length;
-    const pct = Math.round((answered / questions.length) * 100);
-    document.getElementById('progressBar').style.width = pct + '%';
+    const qs = currentMode === 'open' ? openQs : preopenQs;
+    const answered = qs.filter(q => document.querySelector(`input[name="${q}"]:checked`)).length;
+    document.getElementById('progressBar').style.width = Math.round((answered / qs.length) * 100) + '%';
   }
 
-  // ─── Scoring ──────────────────────────────────────────────
+  // ─── Helpers ──────────────────────────────────────────────
   function getVal(name) {
     const el = document.querySelector(`input[name="${name}"]:checked`);
     return el ? parseInt(el.value) : null;
   }
 
-  function calculate() {
-    // Validate
-    const required = preOpen
-      ? ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16','q17','q18']
-      : ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14'];
+  function zoneData(pct) {
+    if (pct >= 80) return {
+      zone: 'SOLID FOUNDATION', zoneClass: 'solid', fillClass: 'fill-solid', icon: '✓', iconClass: 'solid',
+      headline: "Your financial foundation is in good shape.",
+      summary: "You know your numbers, your capital structure is under control, and you have real infrastructure in place. The goal now is keeping this tight as you move forward — the gaps that emerge between the planning stage and operating are different than the ones that take down a first-time operator."
+    };
+    if (pct >= 60) return {
+      zone: 'NEEDS ATTENTION', zoneClass: 'attention', fillClass: 'fill-attention', icon: '!', iconClass: 'attention',
+      headline: "You have the basics, but there are real gaps.",
+      summary: "This score isn't an emergency — it's a warning. The issues showing up here are the kind that don't hurt immediately. They hurt when a slow month hits, a cost overrun lands, or a lender asks a question you can't answer. Now is the right time to fix them."
+    };
+    return {
+      zone: 'AT RISK', zoneClass: 'risk', fillClass: 'fill-risk', icon: '↓', iconClass: 'risk',
+      headline: "Your financial foundation needs work — and the clock is running.",
+      summary: "This score reflects real vulnerability. That doesn't mean the concept is in trouble, but it does mean the financial infrastructure underneath it isn't built to handle adversity — a cost overrun, a slow ramp, or a conversation with a lender. Getting this right is more urgent than most other things on your list."
+    };
+  }
 
-    let missing = required.filter(q => getVal(q) === null);
+  // ─── Section feedback ─────────────────────────────────────
+  const feedbackMap = {
+    open: [
+      {
+        name: 'The Numbers',
+        solid:     "You know the metrics that matter. Food cost, labor, prime cost, P&L — these aren't abstract. That's rarer than it should be.",
+        attention: "You have some visibility but there are gaps. Not knowing your prime cost or a break-even that includes debt service creates silent problems.",
+        risk:      "The numbers that should be running your business are running in the background without you. This is fixable — but it needs to be the first thing you fix."
+      },
+      {
+        name: 'Cash & Leverage',
+        solid:     "Your cash position and leverage are under control. You understand the difference between what the P&L shows and what's actually in the bank after debt service.",
+        attention: "There are leverage or liquidity gaps here. The most common: operators who track operating cash flow but haven't separated it from free cash flow — so they don't know their real position after debt service.",
+        risk:      "This section carries the most risk. Cash shortfalls and over-leverage are the two fastest ways a functioning restaurant becomes a failing one. This deserves immediate attention."
+      },
+      {
+        name: 'Systems & Infrastructure',
+        solid:     "Your back office is solid. Dedicated software, current books, proper payroll — these are the things that let you see problems before they become emergencies.",
+        attention: "Your infrastructure is functional but has gaps. Running on spreadsheets or seeing your books quarterly means you're always looking at the past, not the present.",
+        risk:      "Without real bookkeeping infrastructure, every other number in this scorecard is an estimate. You can't manage what you can't measure — and right now you're estimating more than you're measuring."
+      }
+    ],
+    preopen: [
+      {
+        name: 'Financial Planning & Projections',
+        solid:     "Your pre-opening financial model is thorough. A stress-tested pro forma with debt service in the break-even, a costed menu, and a downside scenario — most operators at this stage don't have this level of rigor.",
+        attention: "The modeling foundation is there but has gaps. The break-even that doesn't include debt service and a pro forma that hasn't been stress-tested are the two most common issues — and they tend to surface at the worst possible time.",
+        risk:      "Going into an opening without a complete financial model is the single biggest predictor of running out of cash before you hit your stride. This needs to be addressed before the build gets further along."
+      },
+      {
+        name: 'Capital Structure & Working Capital',
+        solid:     "Your capital structure is in good shape. You have working capital reserves, manageable debt service, and a clear picture of your leverage going in. That's a strong position.",
+        attention: "There are capital or leverage gaps that deserve attention before you're further into the build. The working capital reserve and debt service as a % of revenue are the two numbers that will determine whether you can absorb the unexpected.",
+        risk:      "This is the highest-risk section for a pre-opening operator. Undercapitalization and over-leverage going into an opening are the two most common reasons restaurants that open don't survive long enough to find their footing. This needs to be addressed now."
+      },
+      {
+        name: 'Back Office Setup',
+        solid:     "Your back office infrastructure is set up before the doors open. That puts you well ahead of most first-time operators, who discover these gaps after they're already operating.",
+        attention: "Some infrastructure is in place, but there are gaps. Entity formation, business banking, accounting software, and payroll are all easier and cheaper to set up pre-opening than post-opening.",
+        risk:      "Setting up the back office after you open is significantly more disruptive and expensive than doing it now. Entity, banking, accounting software, and payroll platform — all of these need to be in place before the first employee is hired."
+      },
+      {
+        name: 'Build-Out Financial Discipline',
+        solid:     "Your build-out tracking is disciplined. A line-item budget with actuals tracked, a week-by-week cash flow model, and a real contingency fund — this is what a well-capitalized opening looks like.",
+        attention: "Some discipline is in place but there are gaps. The week-by-week cash flow and contingency fund are the two most common missing pieces — and both tend to matter exactly when you don't have time to figure them out.",
+        risk:      "Build-outs without detailed budgets, tracked actuals, and contingency funds routinely run out of money before opening day. This section needs attention before the build goes further."
+      }
+    ]
+  };
+
+  // ─── Calculate ────────────────────────────────────────────
+  function calculate() {
+    const qs = currentMode === 'open' ? openQs : preopenQs;
+    const missing = qs.filter(q => getVal(q) === null);
+
     if (missing.length > 0) {
-      // Scroll to first unanswered
-      const first = missing[0];
-      const el = document.getElementById(first);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Pulse the unanswered
-      missing.forEach(q => {
-        const opts = document.getElementById(q);
+      const firstMissing = missing[0];
+      const el = document.querySelector(`input[name="${firstMissing}"]`);
+      if (el) {
+        const opts = el.closest('.options');
         if (opts) {
           opts.style.outline = '2px solid #e8412b';
           opts.style.borderRadius = '3px';
+          opts.scrollIntoView({ behavior: 'smooth', block: 'center' });
           setTimeout(() => { opts.style.outline = ''; }, 2000);
         }
-      });
+      }
       return;
     }
 
-    // Section 1: max 25
-    const s1 = [getVal('q1'), getVal('q2'), getVal('q3'), getVal('q4'), getVal('q5')].reduce((a,b)=>a+b,0);
-    const s1max = 25;
+    let sections, totalMax;
 
-    // Section 2: max 30
-    const s2 = [getVal('q6'), getVal('q7'), getVal('q8'), getVal('q9'), getVal('q10')].reduce((a,b)=>a+b,0);
-    const s2max = 30;
+    if (currentMode === 'open') {
+      const s1 = ['o_q1','o_q2','o_q3','o_q4','o_q5'].reduce((a,q) => a + getVal(q), 0);
+      const s2 = ['o_q6','o_q7','o_q8','o_q9','o_q10'].reduce((a,q) => a + getVal(q), 0);
+      const s3 = ['o_q11','o_q12','o_q13','o_q14'].reduce((a,q) => a + getVal(q), 0);
+      sections = [
+        { score: s1, max: 25 },
+        { score: s2, max: 30 },
+        { score: s3, max: 20 }
+      ];
+      totalMax = 75;
+    } else {
+      const s1 = ['p_q1','p_q2','p_q3','p_q4'].reduce((a,q) => a + getVal(q), 0);
+      const s2 = ['p_q5','p_q6','p_q7','p_q8'].reduce((a,q) => a + getVal(q), 0);
+      const s3 = ['p_q9','p_q10','p_q11','p_q12'].reduce((a,q) => a + getVal(q), 0);
+      const s4 = ['p_q13','p_q14','p_q15','p_q16'].reduce((a,q) => a + getVal(q), 0);
+      sections = [
+        { score: s1, max: 25 },
+        { score: s2, max: 30 },
+        { score: s3, max: 20 },
+        { score: s4, max: 25 }
+      ];
+      totalMax = 100;
+    }
 
-    // Section 3: max 20
-    const s3 = [getVal('q11'), getVal('q12'), getVal('q13'), getVal('q14')].reduce((a,b)=>a+b,0);
-    const s3max = 20;
-
-    // Section 4: max 25 (pre-open only)
-    const s4 = preOpen ? [getVal('q15'), getVal('q16'), getVal('q17'), getVal('q18')].reduce((a,b)=>a+b,0) : null;
-    const s4max = 25;
-
-    const totalMax = preOpen ? s1max + s2max + s3max + s4max : s1max + s2max + s3max;
-    const totalRaw = preOpen ? s1 + s2 + s3 + s4 : s1 + s2 + s3;
+    const totalRaw = sections.reduce((a, s) => a + s.score, 0);
     const pct = Math.round((totalRaw / totalMax) * 100);
 
-    renderResults(pct, totalMax, s1, s1max, s2, s2max, s3, s3max, s4, s4max);
+    renderResults(pct, totalMax, sections);
   }
 
-  function zoneData(pct) {
-    if (pct >= 80) return {
-      zone: 'SOLID FOUNDATION',
-      zoneClass: 'solid',
-      fillClass: 'fill-solid',
-      icon: '✓',
-      iconClass: 'solid',
-      headline: "Your financial foundation is in good shape.",
-      summary: "You know your numbers, manage cash responsibly, and have real infrastructure in place. The goal now is keeping this tight as you grow — because the gaps that emerge between unit one and unit two are different than the ones that take down a first-time operator."
-    };
-    if (pct >= 60) return {
-      zone: 'NEEDS ATTENTION',
-      zoneClass: 'attention',
-      fillClass: 'fill-attention',
-      icon: '!',
-      iconClass: 'attention',
-      headline: "You have the basics, but there are real gaps.",
-      summary: "This score isn't an emergency — it's a warning. The issues showing up here are the kind that don't hurt immediately. They hurt six months from now when a slow quarter hits, a vendor gets aggressive, or a lender pulls back. Now is the right time to fix them."
-    };
-    return {
-      zone: 'AT RISK',
-      zoneClass: 'risk',
-      fillClass: 'fill-risk',
-      icon: '↓',
-      iconClass: 'risk',
-      headline: "Your financial foundation needs work — and the clock is running.",
-      summary: "This score reflects real vulnerability. That doesn't mean the business is in trouble, but it does mean the financial infrastructure underneath it isn't built to handle a bad month, a staffing problem, or a lender conversation. Getting this right is more urgent than most other things on your list."
-    };
-  }
-
-  function sectionFeedback(name, score, max) {
-    const pct = score / max;
-    const z = zoneData(Math.round(pct * 100));
-    let feedback = '';
-    if (name === 'The Numbers') {
-      if (pct >= .8) feedback = "You know the metrics that matter. Food cost, labor, prime cost, P&L — these aren't abstract to you. That's rarer than it should be.";
-      else if (pct >= .6) feedback = "You have some visibility but there are gaps. Not knowing your prime cost or break-even — including debt service — is the kind of thing that creates silent problems.";
-      else feedback = "The numbers that should be running your business are running in the background without you. This is fixable, but it needs to be the first thing you fix.";
-    } else if (name === 'Cash & Leverage') {
-      if (pct >= .8) feedback = "Your cash position and leverage are under control. You understand the difference between what the P&L shows and what's actually in the bank after debt service.";
-      else if (pct >= .6) feedback = "There are leverage or liquidity gaps here. The most common: operators who understand operating cash flow but have never formally separated it from free cash flow — meaning they don't know their real position after debt service.";
-      else feedback = "This section carries the most risk. Cash shortfalls and over-leverage are the two fastest ways a functioning restaurant becomes a failing one. This deserves immediate attention.";
-    } else if (name === 'Systems & Infrastructure') {
-      if (pct >= .8) feedback = "Your back office infrastructure is solid. Dedicated software, current books, proper payroll — these are the things that let you see problems before they become emergencies.";
-      else if (pct >= .6) feedback = "Your infrastructure is functional but has gaps. Running on spreadsheets or seeing your books quarterly means you're always looking at the past, not the present.";
-      else feedback = "Without real bookkeeping infrastructure, every other number in this scorecard is an estimate. You can't manage what you can't measure — and right now, you're estimating more than you're measuring.";
-    } else {
-      if (pct >= .8) feedback = "Your pre-opening financial setup is thorough. Most operators at this stage don't have this level of structure — it gives you a meaningful advantage going into opening.";
-      else if (pct >= .6) feedback = "You have a foundation but there are gaps in the pre-opening setup that tend to show up as surprises after opening. The week-by-week cash flow model and debt-service-adjusted break-even are the two most common missing pieces.";
-      else feedback = "The pre-opening financial setup has significant gaps. This is the highest-stakes moment to get the numbers right — changes after opening are much harder and more expensive than changes before.";
-    }
-    return { ...z, feedback };
-  }
-
-  function renderResults(pct, totalMax, s1, s1max, s2, s2max, s3, s3max, s4, s4max) {
+  // ─── Render ───────────────────────────────────────────────
+  function renderResults(pct, totalMax, sections) {
     const z = zoneData(pct);
+    const fbSet = feedbackMap[currentMode];
 
-    // Main score
-    document.getElementById('scoreNum').innerHTML = pct + '<span>/' + (preOpen ? '100' : '75') + ' pts</span>';
-    document.getElementById('scoreZone').textContent = z.zone;
-    document.getElementById('scoreZone').className = 'score-zone ' + z.zoneClass;
+    document.getElementById('scoreNum').innerHTML = pct + '<span>/100</span>';
+    const scoreZone = document.getElementById('scoreZone');
+    scoreZone.textContent = z.zone;
+    scoreZone.className = 'score-zone ' + z.zoneClass;
     document.getElementById('scoreHeadline').textContent = z.headline;
     document.getElementById('scoreSummary').textContent = z.summary;
-    document.getElementById('scoreDisplay').querySelector('.score-bar-fill')?.remove();
-    const barFill = document.createElement('div');
+
+    const barFill = document.getElementById('scoreBarFill');
     barFill.className = 'score-bar-fill ' + z.fillClass;
     barFill.style.width = '0%';
-    document.getElementById('scoreDisplay').querySelector('.score-bar-wrap').appendChild(barFill);
     setTimeout(() => { barFill.style.width = pct + '%'; }, 100);
-
-    // Section breakdown
-    const sections = [
-      { name: 'The Numbers', score: s1, max: s1max },
-      { name: 'Cash & Leverage', score: s2, max: s2max },
-      { name: 'Systems & Infrastructure', score: s3, max: s3max },
-    ];
-    if (preOpen && s4 !== null) sections.push({ name: 'Pre-Opening Setup', score: s4, max: s4max });
 
     const container = document.getElementById('sectionScores');
     container.innerHTML = '';
+
     sections.forEach((sec, i) => {
       const sPct = Math.round((sec.score / sec.max) * 100);
-      const fb = sectionFeedback(sec.name, sec.score, sec.max);
+      const fb = fbSet[i];
+      const secZ = zoneData(sPct);
+      const feedbackText = sPct >= 80 ? fb.solid : sPct >= 60 ? fb.attention : fb.risk;
+
       const card = document.createElement('div');
       card.className = 'section-score-card';
       card.innerHTML = `
-        <div class="ss-icon ${fb.iconClass}">${fb.icon}</div>
+        <div class="ss-icon ${secZ.iconClass}">${secZ.icon}</div>
         <div class="ss-body">
-          <div class="ss-label">0${i+1} · ${sec.name.toUpperCase()}</div>
-          <div class="ss-title">${sec.name}</div>
-          <p class="ss-feedback">${fb.feedback}</p>
+          <div class="ss-label">0${i+1} · ${fb.name.toUpperCase()}</div>
+          <div class="ss-title">${fb.name}</div>
+          <p class="ss-feedback">${feedbackText}</p>
           <div class="ss-bar-wrap">
-            <div class="ss-bar-fill ${fb.fillClass}" style="width:0%; transition: width .8s ease ${i * .15}s;"></div>
+            <div class="ss-bar-fill ${secZ.fillClass}" style="width:0%; transition: width .8s ease ${i * .15}s;"></div>
           </div>
         </div>
         <div class="ss-score">${sec.score}/${sec.max}</div>
@@ -712,19 +902,19 @@
       }, 200 + i * 100);
     });
 
-    // Show results, hide form
     document.getElementById('scoreForm').style.display = 'none';
     document.getElementById('results').style.display = 'block';
     document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // ─── Retake ───────────────────────────────────────────────
   function retake() {
     document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
     document.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected'));
     document.getElementById('progressBar').style.width = '0%';
     document.getElementById('scoreForm').style.display = 'block';
     document.getElementById('results').style.display = 'none';
-    setPreOpen(false);
+    setMode('open');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
