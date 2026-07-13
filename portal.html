@@ -179,7 +179,14 @@
         <div id="hourly-table" class="hidden"></div>
       </div>
     </div>
-    <div class="foot">REI HOSPITALITY CLIENT PORTAL · BACK 9 SOCIAL · LIVE TOAST DATA</div>
+    <div class="h-row" style="margin-top:36px"><h2>Guests</h2><span class="date">Bay-rental customers · all time</span></div>
+    <div class="tiles" id="guest-tiles"></div>
+    <div class="card">
+      <div class="c-head"><div><h4>Guest directory</h4><div class="c-sub">Search by name or email · top spenders shown by default</div></div></div>
+      <input id="guestSearch" type="text" placeholder="Search guests by name or email…" style="margin-bottom:14px" oninput="onGuestSearch()" />
+      <div id="guest-table"><div class="muted-note">Loading…</div></div>
+    </div>
+    <div class="foot">REI HOSPITALITY CLIENT PORTAL · BACK 9 SOCIAL · LIVE SALES DATA</div>
   </main>
 </div>
 <div class="tip" id="tip"></div>
@@ -218,7 +225,7 @@ window.doLogout = async () => { await sb.auth.signOut(); $('app').classList.add(
 
 async function showApp(){
   $('login').classList.add('hidden'); $('app').classList.remove('hidden'); window.scrollTo(0,0);
-  renderChips(); await loadDashboard();
+  renderChips(); await loadDashboard(); loadGuests();
 }
 
 // ---------- DATA ----------
@@ -360,6 +367,35 @@ $('rangeSeg').addEventListener('click', (e)=>{ const b=e.target.closest('button'
 $('baySeg').addEventListener('click', (e)=>{ const b=e.target.closest('button'); if(!b) return;
   [...$('baySeg').children].forEach(x=>x.classList.remove('on')); b.classList.add('on');
   state.bay = b.dataset.bay; render(); });
+
+// ---------- GUESTS ----------
+let guestTimer;
+async function loadGuests(){
+  const s = await sb.from('dash_guest_stats').select('*').maybeSingle();
+  if(s.data){
+    const d = s.data, rep = Number(d.total_guests) ? Math.round(100*Number(d.repeat_guests)/Number(d.total_guests)) : 0;
+    $('guest-tiles').innerHTML = [
+      {lab:'Total guests', val:Number(d.total_guests).toLocaleString(), sub:'unique customers'},
+      {lab:'Repeat guests', val:rep+'%', sub:`${Number(d.repeat_guests).toLocaleString()} came back`},
+      {lab:'Avg spend / guest', val:money2(Number(d.avg_spend||0)), sub:'lifetime'},
+      {lab:'Lifetime bay revenue', val:money(Number(d.lifetime_spend||0)), sub:'all guests'},
+    ].map(t=>`<div class="tile"><div class="lab">${t.lab}</div><div class="val">${t.val}</div><div class="sub">${t.sub}</div></div>`).join('');
+  }
+  renderGuestList('');
+}
+async function renderGuestList(q){
+  const safe = (q||'').replace(/[,()%*]/g,' ').trim();
+  const base = sb.from('dash_guests').select('*').order('total_spent',{ascending:false});
+  const query = safe ? base.or(`name.ilike.%${safe}%,email.ilike.%${safe}%`).limit(50) : base.limit(25);
+  const { data, error } = await query;
+  if(error){ $('guest-table').innerHTML = `<div class="muted-note">Couldn't load guests: ${escapeHtml(error.message)}</div>`; return; }
+  if(!data || !data.length){ $('guest-table').innerHTML = '<div class="muted-note">No guests match that search.</div>'; return; }
+  $('guest-table').innerHTML =
+    `<table class="dv"><thead><tr><th>Guest</th><th>Visits</th><th>Total spent</th><th>Last visit</th></tr></thead><tbody>` +
+    data.map(g=>`<tr><td><div>${escapeHtml(g.name||'—')}</div><div style="color:var(--muted);font-size:11px">${escapeHtml(g.email||'')}</div></td><td>${g.visits}</td><td>${money2(Number(g.total_spent||0))}</td><td>${g.last_visit?fmtDate(g.last_visit):'—'}</td></tr>`).join('') +
+    `</tbody></table>`;
+}
+window.onGuestSearch = ()=>{ clearTimeout(guestTimer); guestTimer = setTimeout(()=>renderGuestList($('guestSearch').value), 300); };
 
 // ---------- INIT: resume session if present ----------
 (async ()=>{ const { data:{ session } } = await sb.auth.getSession(); if(session) showApp(); })();
