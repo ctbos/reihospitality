@@ -316,7 +316,7 @@ window.runQuery = async ()=>{
     if(j.chart && j.chart.data && j.chart.data.length){
       html += `<div>${barChart(j.chart.data.map(d=>({l:String(d.label), v:Number(d.value)})), {money:true})}</div>`;
     }
-    html += `<p class="a-meta">Answered from your live Toast data</p></div>`;
+    html += `<p class="a-meta">Answered from your live sales data</p></div>`;
     out.innerHTML = html; wireBars();
   }catch(err){
     const msg = err.message==='not-deployed'
