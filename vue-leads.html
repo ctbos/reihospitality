@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>The Vue — Lead Board · REI Client Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23241c15'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='30' fill='%23f4efe6' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<style>
+  /* REI Client Portal palette (matches portal.html / vue-deposits.html) + lead-age colors */
+  :root{
+    --ink:#241c15; --ink-2:#46413a; --muted:#6b6357; --faint:#a0978a;
+    --paper:#f4efe6; --surface:#fffdf9; --surface-2:#f1ece2;
+    --line:#e6ddcb; --line-2:#cfc2ad;
+    --accent:#e8412b;
+    --bad:#b42318; --bad-bg:#fbe7e3; --warn:#94590a; --warn-bg:#fbefd8;
+    --info:#2b5a8f; --info-bg:#e6eef7; --ok:#1f7a52; --ok-bg:#e3f1e9;
+    --radius:6px; --shadow:0 1px 2px rgba(36,28,21,.04),0 10px 30px rgba(36,28,21,.06);
+    --sans:'Helvetica Neue',Helvetica,Arial,sans-serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --scale:1;
+  }
+  @media (prefers-color-scheme: dark){:root{
+    --ink:#f4efe6; --ink-2:#e6dccb; --muted:#bcae99; --faint:#a0978a;
+    --paper:#171009; --surface:#231a12; --surface-2:#2c2118;
+    --line:#3a3025; --line-2:#4a3d2e; --accent:#f2593f;
+    --bad:#f4877c; --bad-bg:#3a1c17; --warn:#f0b45a; --warn-bg:#35270f;
+    --info:#92b6ec; --info-bg:#1b2738; --ok:#6cc596; --ok-bg:#163024;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.5);}}
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  html{font-size:calc(14px * var(--scale))}
+  body{font-family:var(--sans);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4}
+  .hidden{display:none !important}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .muted{color:var(--muted)}
+  button,input,select{font:inherit;color:inherit} button{cursor:pointer}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .wordmark{display:flex;align-items:baseline;gap:11px}
+  .wordmark .rei{font-weight:700;font-size:2rem;line-height:.72;letter-spacing:-0.03em}
+  .wordmark .pt{font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+  /* sign in (same as the deposit tracker) */
+  .center{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(1100px 520px at 50% -8%, rgba(232,65,43,.08), transparent 60%), var(--paper)}
+  .login-card{width:100%;max-width:410px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:38px 34px}
+  .login-card .wordmark{margin-bottom:26px}
+  .login-card h2{font-size:1.7rem;letter-spacing:-.02em;margin:0 0 5px}
+  .login-card p.sub{color:var(--ink-2);margin:0 0 20px}
+  label.f{display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 0 7px}
+  .login-card input{width:100%;padding:12px 13px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface-2)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border:none;border-radius:3px;background:var(--ink);color:var(--paper);font-size:.93rem;font-weight:500;letter-spacing:.05em}
+  .btn:disabled{opacity:.5;cursor:default}
+  .login-card .btn{width:100%;margin-top:22px}
+  .err{color:var(--bad);font-size:.9rem;margin-top:12px;min-height:16px}
+  .ok-msg{color:var(--ok);font-size:.9rem;margin-top:12px}
+  .link{background:none;border:none;color:var(--muted);font-size:.9rem;padding:6px 8px;border-radius:5px}
+  .link:hover{background:var(--surface-2);color:var(--ink)}
+  .login-card .link{display:block;margin:14px auto 0}
+
+  /* app */
+  header.appbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .tabs{display:flex;gap:4px;margin-left:12px}
+  .tabs a{font-size:.9rem;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:5px}
+  .tabs a[aria-current="page"]{background:var(--ink);color:var(--paper)}
+  header.appbar .client{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .client-badge{font-size:.93rem;color:var(--ink-2)} .client-badge b{color:var(--ink)}
+  main{max-width:1500px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:grid;gap:22px}
+  main > *, .grid > *{min-width:0}
+  .backlog{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;font-size:.9rem;color:var(--ink-2)}
+  .backlog b{color:var(--bad)}
+  .backlog button{font-size:.85rem;border:1px solid var(--line-2);background:var(--surface);border-radius:4px;padding:3px 9px;white-space:nowrap}
+  body.tv .backlog button{display:none}
+  .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px}
+  .top h1{font-size:2rem;letter-spacing:-.03em;margin:4px 0 0}
+  .top .who{margin:6px 0 0;color:var(--muted);font-size:.93rem;max-width:62ch}
+  .asof{display:grid;gap:2px;text-align:right;padding:8px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+  .asof .lbl{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:.7rem;color:var(--muted)}
+  .asof .val{font-family:var(--mono);font-size:1.1rem;font-weight:500}
+  .asof .hint{font-size:.85rem;color:var(--muted)}
+  .asof.stale{border-color:var(--warn);background:var(--warn-bg)} .asof.stale .val,.asof.stale .hint{color:var(--warn)}
+  .asof .refresh{justify-self:end;margin-top:4px;font-size:.85rem;border:1px solid var(--line-2);background:var(--surface-2);border-radius:4px;padding:3px 9px}
+  .tvbtn{font-size:.85rem;border:1px solid var(--line-2);background:var(--surface);border-radius:4px;padding:4px 10px}
+  .banner{background:var(--warn-bg);color:var(--warn);border-radius:var(--radius);padding:10px 14px;font-size:.95rem}
+  .banner.bad{background:var(--bad-bg);color:var(--bad)}
+
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);min-width:0}
+  .kpi .lab{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .kpi .val{font-size:2rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:4px}
+  .kpi .sub{font-size:.85rem;color:var(--muted)}
+  .kpi.bad .val{color:var(--bad)} .kpi.warn .val{color:var(--warn)} .kpi.ok .val{color:var(--ok)}
+  @media (max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+  /* layout */
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:18px;align-items:start}
+  @media (max-width:1000px){.grid{grid-template-columns:minmax(0,1fr)}}
+  .panel h2{font-size:1.25rem;letter-spacing:-.02em;margin:0 0 4px}
+  .panel .ph{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .panel .ph p{margin:0;color:var(--muted);font-size:.85rem}
+  .list{display:grid;gap:8px}
+  .empty{background:var(--surface);border:1px dashed var(--line-2);border-radius:var(--radius);padding:16px;color:var(--muted);font-size:.93rem}
+
+  /* lead cards */
+  .card{display:grid;gap:3px;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:var(--radius);padding:10px 12px;box-shadow:var(--shadow)}
+  .card:hover{border-color:var(--line-2)}
+  .card .row1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .card .nm{font-weight:600;font-size:1rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .card .age{font-family:var(--mono);font-size:.95rem;white-space:nowrap}
+  .card .meta{color:var(--muted);font-size:.82rem}
+  .card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+  .tag{font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+  .tag.bad{background:var(--bad-bg);color:var(--bad);border-color:transparent}
+  .tag.warn{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+  .tag.ok{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+  .a-fresh{border-left-color:var(--ok)} .a-warm{border-left-color:var(--warn)} .a-late{border-left-color:var(--bad)}
+  .a-fresh .age{color:var(--ok)} .a-warm .age{color:var(--warn)} .a-late .age{color:var(--bad)}
+
+  /* pipeline */
+  .pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}
+  @media (max-width:820px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .col{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:10px;min-width:0}
+  .col h3{display:flex;justify-content:space-between;margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+  .col .card{border-left-width:1px}
+  .col .more{font-size:.82rem;color:var(--muted);text-align:center;padding:6px}
+
+  /* people table */
+  .tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+  table.ppl{width:100%;border-collapse:collapse;min-width:620px}
+  table.ppl th,table.ppl td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+  table.ppl th:first-child,table.ppl td:first-child{text-align:left}
+  table.ppl th{font-family:var(--mono);font-weight:500;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--surface-2)}
+
+  /* detail drawer */
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:var(--shadow);z-index:40;display:flex;flex-direction:column;padding:20px max(20px,env(safe-area-inset-right,0px)) 20px 20px;overflow-y:auto}
+  .drawer h2{margin:0;font-size:1.4rem}
+  .drawer dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:14px 0;font-size:.93rem}
+  .drawer dt{color:var(--muted)} .drawer dd{margin:0}
+  .notes{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .notes li{border-left:3px solid var(--line-2);padding:2px 0 2px 10px}
+  .notes li.tour_scheduled{border-left-color:var(--info)} .notes li.toured{border-left-color:var(--ok)}
+  .notes .nmeta{font-size:.8rem;color:var(--muted)} .notes .nbody{white-space:pre-wrap;font-size:.93rem}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:39}
+
+  .foot{text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--faint);display:grid;gap:3px}
+
+  /* TV mode: bigger, no controls */
+  body.tv{--scale:1.25}
+  body.tv .tabs, body.tv .client, body.tv .asof .refresh, body.tv .top .who{display:none}
+  body.tv main{max-width:none}
+</style>
+</head>
+<body>
+
+<section id="login" class="center hidden">
+  <div class="login-card">
+    <div class="wordmark"><span class="rei">REI</span><span class="pt">Client Portal</span></div>
+    <div class="eyebrow" style="margin-bottom:10px">The Vue</div>
+    <div id="signin-view">
+      <h2>Sign in</h2>
+      <p class="sub">Lead board for the sales team.</p>
+      <form id="signin-form">
+        <label class="f" for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required />
+        <label class="f" for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required />
+        <button class="btn" id="signin-btn" type="submit">Sign in &nbsp;→</button>
+        <div class="err" id="signin-err" role="alert"></div>
+      </form>
+      <button class="link" id="forgot-btn" type="button">Forgot your password?</button>
+    </div>
+    <div id="forgot-view" class="hidden">
+      <h2>Reset password</h2>
+      <p class="sub">We'll email you a link to set a new password.</p>
+      <form id="forgot-form">
+        <label class="f" for="forgot-email">Email</label>
+        <input id="forgot-email" type="email" autocomplete="username" required />
+        <button class="btn" type="submit">Email me a link</button>
+        <div class="err" id="forgot-err" role="alert"></div>
+        <div class="ok-msg" id="forgot-ok"></div>
+      </form>
+      <button class="link" id="back-btn" type="button">Back to sign in</button>
+    </div>
+    <div id="setpw-view" class="hidden">
+      <h2>Set your password</h2>
+      <form id="setpw-form">
+        <label class="f" for="newpw">New password</label>
+        <input id="newpw" type="password" autocomplete="new-password" minlength="8" required />
+        <button class="btn" type="submit">Save password</button>
+        <div class="err" id="setpw-err" role="alert"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="denied" class="center hidden">
+  <div class="login-card">
+    <div class="wordmark"><span class="rei">REI</span><span class="pt">Client Portal</span></div>
+    <h2 style="margin-top:24px">No access yet</h2>
+    <p class="sub">Your login works, but it hasn't been added to The Vue's portal. Ask Ellis to add you.</p>
+    <button class="btn" id="denied-out" type="button">Sign out</button>
+  </div>
+</section>
+
+<div id="app" class="hidden">
+  <header class="appbar">
+    <div class="wordmark"><span class="rei">REI</span><span class="pt">Client Portal</span></div>
+    <nav class="tabs" aria-label="The Vue tools">
+      <a href="vue-leads.html" aria-current="page">Lead Board</a>
+      <a href="vue-deposits.html">Deposit Tracker</a>
+    </nav>
+    <div class="client">
+      <span class="client-badge">Viewing&nbsp; <b>The Vue</b></span>
+      <span class="client-badge" id="me-name"></span>
+      <button class="tvbtn" id="tv-btn" type="button">TV mode</button>
+      <button class="link" id="signout-btn" type="button">Sign out</button>
+    </div>
+  </header>
+  <main>
+    <div class="top">
+      <div>
+        <div class="eyebrow">Sales</div>
+        <h1>Lead Board</h1>
+        <p class="who">Everything here comes from Tripleseat. A note on a lead counts as contact. Write "Tour 11/5" when a tour is booked and "Toured" after it happens.</p>
+      </div>
+      <div class="asof" id="asof" aria-live="polite">
+        <span class="lbl">Tripleseat data as of</span>
+        <span class="val" id="asof-val">—</span>
+        <span class="hint" id="asof-hint">Loading…</span>
+        <button class="refresh hidden" id="refresh-btn" type="button">Refresh now</button>
+      </div>
+    </div>
+
+    <div class="banner hidden" id="stale" role="status"></div>
+    <div class="banner bad hidden" id="banner" role="alert"></div>
+
+    <section class="kpis" id="kpis" aria-label="Last 30 days"></section>
+
+    <div class="grid">
+      <section class="panel" aria-labelledby="wait-h">
+        <div class="ph"><h2 id="wait-h">Waiting for first contact</h2><p id="wait-sub"></p></div>
+        <div class="list" id="waiting"><div class="empty">Loading leads…</div></div>
+      </section>
+
+      <section class="panel" aria-labelledby="pipe-h">
+        <div class="ph"><h2 id="pipe-h">In progress</h2><p>Open leads from the last 60 days, plus bookings from the last 30</p></div>
+        <div class="pipe" id="pipe"></div>
+      </section>
+    </div>
+
+    <section class="panel" aria-labelledby="ppl-h">
+      <div class="ph"><h2 id="ppl-h">By salesperson</h2><p>Last 30 days, based on who wrote the notes</p></div>
+      <div class="tablewrap"><table class="ppl"><thead><tr>
+        <th>Salesperson</th><th>Leads contacted</th><th>Notes logged</th><th>Median first response</th><th>Follow-ups overdue</th><th>Tours</th>
+      </tr></thead><tbody id="ppl"></tbody></table></div>
+    </section>
+
+    <div class="foot">
+      <div>FIRST CONTACT = FIRST NOTE ON THE LEAD IN TRIPLESEAT · FOLLOW-UP OVERDUE = OPEN LEAD WITH NO NOTE IN 3+ DAYS</div>
+      <div>REI HOSPITALITY CLIENT PORTAL · THE VUE · UPDATES EVERY 15 MINUTES, 7 AM–11 PM</div>
+    </div>
+  </main>
+</div>
+
+<div class="scrim hidden" id="scrim"></div>
+<aside class="drawer hidden" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-name"></aside>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+
+// Public project settings. The anon key is meant to be in page code; row-level security
+// in the database decides who can read The Vue's data.
+const SUPABASE_URL = 'https://cyzbqoygmvbkonbmgksy.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5emJxb3lnbXZia29uYm1na3N5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0Mjk1NzAsImV4cCI6MjEwODAwNTU3MH0.YbpFR249jRdwTTQXatbLpHVuVBUXM6_Y7wLCbrh3BXE';
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: true, detectSessionInUrl: true } });
+
+const TZ = 'America/New_York';
+const BOARD_DAYS = 60, KPI_DAYS = 30, FOLLOWUP_DAYS = 3, FRESH_DAYS = 7;
+const H = 36e5, D = 864e5;
+const state = { me: null, leads: [], notes: [], lastOk: null, lastRun: null, loaded: false, refreshing: false, openLead: null };
+const $ = (id) => document.getElementById(id);
+
+function h(tag, props, ...kids) {
+  const el = document.createElement(tag);
+  if (props) for (const [k, v] of Object.entries(props)) {
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v === true ? '' : v);
+  }
+  const add = (c) => { if (c == null || c === false) return; if (Array.isArray(c)) c.forEach(add); else el.append(c.nodeType ? c : document.createTextNode(String(c))); };
+  kids.forEach(add); return el;
+}
+
+// ---------- formatting ----------
+const fmtDur = (ms) => {
+  if (ms < 0) ms = 0;
+  const m = Math.floor(ms / 6e4);
+  if (m < 60) return `${m}m`;
+  const hrs = Math.floor(m / 60);
+  if (hrs < 48) return `${hrs}h ${m % 60}m`;
+  const d = Math.floor(hrs / 24); return `${d}d ${hrs % 24}h`;
+};
+const fmtHours = (hrs) => hrs == null ? '—' : hrs < 1 ? `${Math.round(hrs * 60)}m` : hrs < 48 ? `${hrs.toFixed(1)}h` : `${(hrs / 24).toFixed(1)}d`;
+const fmtWhen = (iso) => new Intl.DateTimeFormat('en-US', { timeZone: TZ, month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(iso));
+const fmtDay = (iso) => { if (!iso) return '—'; const d = new Date(iso + 'T12:00:00Z'); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }); };
+const ago = (iso) => { const ms = Date.now() - new Date(iso).getTime(); return ms < 6e4 ? 'just now' : fmtDur(ms) + ' ago'; };
+const name = (l) => [l.first_name, l.last_name].filter(Boolean).join(' ') || `Lead ${l.lead_id}`;
+const median = (a) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const etParts = (d) => { const p = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(d); const g = (t) => p.find((x) => x.type === t).value; return { date: `${g('year')}-${g('month')}-${g('day')}`, mins: +g('hour') * 60 + +g('minute') }; };
+
+// ---------- model ----------
+function stage(l) {
+  if (l.status === 'booked') return 'booked';
+  if (l.status === 'lost') return 'lost';
+  if (l.toured_at) return 'toured';
+  if (l.tour_noted_at) return 'tour';
+  if (l.first_note_at) return 'contacted';
+  return 'new';
+}
+function ageClass(ms) { return ms < 2 * H ? 'a-fresh' : ms < 24 * H ? 'a-warm' : 'a-late'; }
+function workedBy(l) {
+  const ns = state.notes.filter((n) => n.lead_id === l.lead_id && n.author_name);
+  return ns.length ? ns[ns.length - 1].author_name : null;
+}
+
+// ---------- render ----------
+function render() {
+  renderSync();
+  if (!state.loaded) return;
+  const now = Date.now();
+  const recent = state.leads.filter((l) => now - new Date(l.created_at) <= KPI_DAYS * D);
+  const contacted = recent.filter((l) => l.first_note_at);
+  const resp = contacted.map((l) => (new Date(l.first_note_at) - new Date(l.created_at)) / H).filter((x) => x >= 0);
+  const in24 = contacted.filter((l) => new Date(l.first_note_at) - new Date(l.created_at) <= 24 * H).length;
+  const waiting = recent.filter((l) => stage(l) === 'new');
+  // the list: this week's uncontacted leads, newest at the top; older ones collapse into a backlog line
+  const fresh = waiting.filter((l) => now - new Date(l.created_at) <= FRESH_DAYS * D).sort((a, b) => b.created_at.localeCompare(a.created_at));
+  const backlog = state.leads.filter((l) => stage(l) === 'new' && now - new Date(l.created_at) > FRESH_DAYS * D && now - new Date(l.created_at) <= BOARD_DAYS * D)
+    .sort((a, b) => b.created_at.localeCompare(a.created_at));
+  const overdue = state.leads.filter((l) => l.status === 'open' && l.last_note_at && now - new Date(l.last_note_at) > FOLLOWUP_DAYS * D && now - new Date(l.created_at) <= BOARD_DAYS * D);
+  const tours = recent.filter((l) => l.tour_noted_at || l.toured_at).length;
+  const booked = state.leads.filter((l) => l.status === 'booked' && l.converted_at && now - new Date(l.converted_at) <= KPI_DAYS * D).length;
+  const med = median(resp);
+  const pct = recent.length ? Math.round((in24 / recent.length) * 100) : 0;
+
+  const k = $('kpis'); k.textContent = '';
+  const kpi = (lab, val, sub, cls) => k.append(h('div', { class: `kpi ${cls || ''}` }, h('div', { class: 'lab' }, lab), h('div', { class: 'val' }, val), h('div', { class: 'sub' }, sub)));
+  kpi('New leads', recent.length, `last ${KPI_DAYS} days`);
+  kpi('Never contacted', waiting.length, `of ${recent.length} new leads`, waiting.length ? 'bad' : 'ok');
+  kpi('Median first response', fmtHours(med), `${contacted.length} leads contacted`, med == null ? '' : med <= 4 ? 'ok' : med <= 24 ? 'warn' : 'bad');
+  kpi('Contacted within 24h', `${pct}%`, `${in24} of ${recent.length} new leads`, pct >= 80 ? 'ok' : pct >= 50 ? 'warn' : 'bad');
+  kpi('Follow-ups overdue', overdue.length, `no note in ${FOLLOWUP_DAYS}+ days`, overdue.length ? 'warn' : 'ok');
+  kpi('Tours · Booked', `${tours} · ${booked}`, `last ${KPI_DAYS} days`);
+
+  // waiting list
+  const w = $('waiting'); w.textContent = '';
+  $('wait-sub').textContent = `Last ${FRESH_DAYS} days · newest first`;
+  if (!fresh.length) w.append(h('div', { class: 'empty' }, `Every lead from the last ${FRESH_DAYS} days has a note.`));
+  const list = state.showBacklog && !document.body.classList.contains('tv') ? fresh.concat(backlog) : fresh;
+  if (backlog.length) {
+    const bl = h('div', { class: 'backlog' }, h('span', null, h('b', null, backlog.length), ` older leads (${FRESH_DAYS + 1}–${BOARD_DAYS} days) still have no note`),
+      h('button', { type: 'button', onclick: () => { state.showBacklog = !state.showBacklog; render(); } }, state.showBacklog ? 'Hide' : 'Show'));
+    w.append(bl);
+  }
+  for (const l of list) {
+    const ms = now - new Date(l.created_at);
+    w.append(h('button', { class: `card ${ageClass(ms)}`, type: 'button', onclick: () => openLead(l.lead_id) },
+      h('div', { class: 'row1' }, h('span', { class: 'nm' }, name(l)), h('span', { class: 'age' }, fmtDur(ms))),
+      h('div', { class: 'meta' }, [l.source, l.event_date ? `event ${fmtDay(l.event_date)}` : null, l.guest_count ? `${l.guest_count} guests` : null].filter(Boolean).join(' · ')),
+      h('div', { class: 'tags' }, l.owner_name ? h('span', { class: 'tag' }, l.owner_name) : h('span', { class: 'tag bad' }, 'Unassigned'),
+        l.viewed_at ? h('span', { class: 'tag' }, 'opened in Tripleseat') : h('span', { class: 'tag warn' }, 'not opened yet'))));
+  }
+
+  // pipeline
+  const cols = [['contacted', 'Contacted'], ['tour', 'Tour scheduled'], ['toured', 'Toured'], ['booked', 'Booked']];
+  const p = $('pipe'); p.textContent = '';
+  for (const [key, label] of cols) {
+    let items = state.leads.filter((l) => stage(l) === key);
+    if (key === 'booked') items = items.filter((l) => l.converted_at && now - new Date(l.converted_at) <= KPI_DAYS * D).sort((a, b) => b.converted_at.localeCompare(a.converted_at));
+    else items = items.filter((l) => now - new Date(l.created_at) <= BOARD_DAYS * D).sort((a, b) => (a.last_note_at || '').localeCompare(b.last_note_at || ''));
+    const col = h('div', { class: 'col' }, h('h3', null, h('span', null, label), h('span', { class: 'num' }, items.length)));
+    const shown = document.body.classList.contains('tv') ? 8 : 25;
+    for (const l of items.slice(0, shown)) {
+      const stale = l.status === 'open' && l.last_note_at && now - new Date(l.last_note_at) > FOLLOWUP_DAYS * D;
+      const by = workedBy(l) || l.owner_name;
+      col.append(h('button', { class: 'card', type: 'button', onclick: () => openLead(l.lead_id) },
+        h('div', { class: 'row1' }, h('span', { class: 'nm' }, name(l)), key === 'tour' && l.tour_date ? h('span', { class: 'age num' }, fmtDay(l.tour_date).replace(/, \d{4}$/, '')) : null),
+        h('div', { class: 'meta' }, key === 'booked' ? `booked ${ago(l.converted_at)}` : `last note ${ago(l.last_note_at)}`),
+        h('div', { class: 'tags' }, by ? h('span', { class: 'tag' }, by) : h('span', { class: 'tag bad' }, 'Unassigned'),
+          stale ? h('span', { class: 'tag warn' }, 'Follow up') : null, l.source && l.source !== 'Tripleseat Web Lead' ? h('span', { class: 'tag' }, l.source) : null)));
+    }
+    if (items.length > shown) col.append(h('div', { class: 'more' }, `+ ${items.length - shown} more`));
+    if (!items.length) col.append(h('div', { class: 'more' }, 'None'));
+    p.append(col);
+  }
+
+  // people
+  const since = now - KPI_DAYS * D;
+  const people = new Map();
+  const P = (n) => { if (!people.has(n)) people.set(n, { leads: new Set(), notes: 0, firsts: [], overdue: 0, tours: 0 }); return people.get(n); };
+  for (const n of state.notes) {
+    if (!n.author_name || new Date(n.created_at) < since) continue;
+    const r = P(n.author_name); r.notes++; r.leads.add(n.lead_id); if (n.kind !== 'contact') r.tours++;
+  }
+  for (const l of state.leads) {
+    if (!l.first_note_at || new Date(l.created_at) < since) continue;
+    const first = state.notes.filter((n) => n.lead_id === l.lead_id).sort((a, b) => a.created_at.localeCompare(b.created_at))[0];
+    if (first?.author_name) P(first.author_name).firsts.push((new Date(l.first_note_at) - new Date(l.created_at)) / H);
+  }
+  for (const l of overdue) { const by = workedBy(l); if (by) P(by).overdue++; }
+  const tb = $('ppl'); tb.textContent = '';
+  const rows = [...people.entries()].sort((a, b) => b[1].notes - a[1].notes);
+  if (!rows.length) tb.append(h('tr', null, h('td', { colspan: '6', class: 'muted', style: 'text-align:left' }, 'No notes logged in the last 30 days.')));
+  for (const [nm, r] of rows) tb.append(h('tr', null, h('td', null, nm), h('td', null, r.leads.size), h('td', null, r.notes), h('td', null, fmtHours(median(r.firsts))), h('td', null, r.overdue), h('td', null, r.tours)));
+  if (state.openLead) renderDrawer();
+}
+
+function renderSync() {
+  const box = $('asof'), val = $('asof-val'), hint = $('asof-hint'), banner = $('stale');
+  let stale = false, msg = '';
+  if (!state.loaded) { val.textContent = '—'; hint.textContent = 'Loading…'; }
+  else if (!state.lastOk) { val.textContent = 'Not yet synced'; hint.textContent = 'Updates every 15 minutes'; stale = true; }
+  else {
+    const d = new Date(state.lastOk.finished_at);
+    const now = etParts(new Date()), synced = etParts(d);
+    const ageMin = (Date.now() - d.getTime()) / 6e4;
+    const inHours = now.mins >= 7 * 60 + 30 && now.mins <= 23 * 60; // sync runs 7 AM–11 PM
+    stale = inHours && ageMin > 45;
+    val.textContent = `${synced.date === now.date ? 'Today' : new Intl.DateTimeFormat('en-US', { timeZone: TZ, weekday: 'short', month: 'short', day: 'numeric' }).format(d)} · ${new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit' }).format(d)}`;
+    hint.textContent = stale ? 'Not updating' : 'Updates every 15 minutes';
+    if (stale) msg = `The board hasn't updated from Tripleseat since ${fmtWhen(state.lastOk.finished_at)}. New leads and notes since then won't show yet.`;
+  }
+  const lr = state.lastRun;
+  if (lr && lr.status === 'error' && state.me?.role === 'admin') msg = (msg ? msg + ' ' : '') + `Last update attempt failed: ${lr.error || 'unknown error'}`;
+  box.className = stale ? 'asof stale' : 'asof';
+  banner.textContent = msg; banner.classList.toggle('hidden', !msg);
+  const rb = $('refresh-btn');
+  rb.classList.toggle('hidden', state.me?.role !== 'admin');
+  rb.disabled = state.refreshing; rb.textContent = state.refreshing ? 'Updating…' : 'Refresh now';
+}
+
+// ---------- lead detail ----------
+function openLead(id) { state.openLead = id; renderDrawer(); }
+function closeLead() { state.openLead = null; $('drawer').classList.add('hidden'); $('scrim').classList.add('hidden'); }
+function renderDrawer() {
+  const l = state.leads.find((x) => x.lead_id === state.openLead); if (!l) return closeLead();
+  const notes = state.notes.filter((n) => n.lead_id === l.lead_id).sort((a, b) => b.created_at.localeCompare(a.created_at));
+  const dr = $('drawer'); dr.textContent = '';
+  const resp = l.first_note_at ? fmtDur(new Date(l.first_note_at) - new Date(l.created_at)) : null;
+  dr.append(
+    h('div', { style: 'display:flex;justify-content:space-between;align-items:flex-start;gap:12px' },
+      h('div', null, h('div', { class: 'eyebrow' }, l.source || 'Lead'), h('h2', { id: 'd-name' }, name(l))),
+      h('button', { class: 'link', type: 'button', onclick: closeLead, 'aria-label': 'Close' }, 'Close')),
+    h('dl', null,
+      h('dt', null, 'Came in'), h('dd', null, `${fmtWhen(l.created_at)} (${ago(l.created_at)})`),
+      h('dt', null, 'First contact'), h('dd', null, l.first_note_at ? `${fmtWhen(l.first_note_at)} · ${resp} after it came in` : 'No note yet'),
+      h('dt', null, 'Salesperson'), h('dd', null, l.owner_name || workedBy(l) || 'Unassigned'),
+      h('dt', null, 'Event date'), h('dd', null, fmtDay(l.event_date)),
+      h('dt', null, 'Guests'), h('dd', null, l.guest_count || '—'),
+      h('dt', null, 'Tour'), h('dd', null, l.toured_at ? `Toured (noted ${fmtWhen(l.toured_at)})` : l.tour_date ? `Scheduled ${fmtDay(l.tour_date)}` : '—'),
+      h('dt', null, 'Status'), h('dd', null, l.status === 'booked' ? `Booked ${fmtWhen(l.converted_at)}` : l.status === 'lost' ? `Turned down${l.turned_down_reason ? ': ' + l.turned_down_reason : ''}` : 'Open'),
+      h('dt', null, 'Tripleseat'), h('dd', { class: 'num' }, `Lead ${l.lead_id}`)),
+    h('h3', { style: 'font-family:var(--mono);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:8px 0' }, `Notes (${notes.length})`),
+    notes.length ? h('ul', { class: 'notes' }, notes.map((n) => h('li', { class: n.kind },
+      h('div', { class: 'nmeta' }, `${fmtWhen(n.created_at)} · ${n.author_name || 'Someone'}${n.kind === 'tour_scheduled' ? ' · tour scheduled' : n.kind === 'toured' ? ' · toured' : ''}`),
+      h('div', { class: 'nbody' }, n.body))))
+      : h('p', { class: 'muted' }, 'No notes in Tripleseat yet. Add one there after the first call, text or email.'));
+  dr.classList.remove('hidden'); $('scrim').classList.remove('hidden');
+}
+$('scrim').addEventListener('click', closeLead);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLead(); });
+
+// ---------- data ----------
+async function load() {
+  const since = new Date(Date.now() - 120 * D).toISOString();
+  const [leads, notes, ok, last] = await Promise.all([
+    sb.from('leads').select('*').eq('archived', false).gte('created_at', since).order('created_at', { ascending: false }).limit(2000),
+    sb.from('lead_notes').select('note_id, lead_id, created_at, author_name, body, kind').gte('created_at', since).order('created_at').limit(5000),
+    sb.from('lead_sync_runs').select('*').eq('status', 'ok').order('finished_at', { ascending: false }).limit(1),
+    sb.from('lead_sync_runs').select('*').order('started_at', { ascending: false }).limit(1),
+  ]);
+  if (leads.error) throw leads.error;
+  state.leads = leads.data || []; state.notes = notes.data || [];
+  state.lastOk = ok.data?.[0] || null; state.lastRun = last.data?.[0] || null;
+}
+let timer = null;
+function subscribe() {
+  const later = () => { clearTimeout(timer); timer = setTimeout(async () => { try { await load(); render(); } catch {} }, 1500); };
+  sb.channel('vue-leads')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, later)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'lead_notes' }, later)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'lead_sync_runs' }, later)
+    .subscribe();
+  setInterval(render, 60 * 1000);              // keep the "waiting" timers ticking
+  setInterval(async () => { try { await load(); render(); } catch {} }, 5 * 60 * 1000); // safety net if live updates drop
+}
+async function refreshNow() {
+  if (state.refreshing) return; state.refreshing = true; render();
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/sync-leads`, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${session.access_token}` }, body: '{}' });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok) { const b = $('banner'); b.textContent = `Refresh failed: ${out.error || res.status}`; b.classList.remove('hidden'); }
+    await load();
+  } catch (e) { const b = $('banner'); b.textContent = `Refresh failed: ${e.message}`; b.classList.remove('hidden'); }
+  state.refreshing = false; render();
+}
+
+// ---------- screens ----------
+function show(id) { for (const s of ['login', 'denied', 'app']) $(s).classList.toggle('hidden', s !== id); }
+function loginView(v) { for (const s of ['signin-view', 'forgot-view', 'setpw-view']) $(s).classList.toggle('hidden', s !== v); }
+async function enter(session) {
+  const email = session.user.email.toLowerCase();
+  const { data: me } = await sb.from('members').select('email, display_name, role').eq('email', email).maybeSingle();
+  if (!me) { show('denied'); return; }
+  state.me = me; $('me-name').textContent = me.display_name;
+  show('app'); render();
+  try { await load(); state.loaded = true; } catch (e) { const b = $('banner'); b.textContent = `Couldn't load leads: ${e.message}`; b.classList.remove('hidden'); }
+  render(); subscribe();
+}
+function setTv(on) {
+  document.body.classList.toggle('tv', on);
+  $('tv-btn').textContent = on ? 'Exit TV mode' : 'TV mode';
+  if (on && location.hash !== '#tv') history.replaceState(null, '', '#tv');
+  if (!on && location.hash === '#tv') history.replaceState(null, '', location.pathname);
+  if (state.loaded) render();
+}
+$('tv-btn').addEventListener('click', () => setTv(!document.body.classList.contains('tv')));
+setTv(location.hash === '#tv');
+
+$('signin-form').addEventListener('submit', async (e) => {
+  e.preventDefault(); $('signin-err').textContent = ''; $('signin-btn').disabled = true;
+  const { data, error } = await sb.auth.signInWithPassword({ email: $('email').value.trim(), password: $('pw').value });
+  $('signin-btn').disabled = false;
+  if (error) { $('signin-err').textContent = error.message === 'Invalid login credentials' ? "That email and password don't match." : error.message; return; }
+  enter(data.session);
+});
+$('forgot-btn').addEventListener('click', () => { $('forgot-email').value = $('email').value; loginView('forgot-view'); });
+$('back-btn').addEventListener('click', () => loginView('signin-view'));
+$('forgot-form').addEventListener('submit', async (e) => {
+  e.preventDefault(); $('forgot-err').textContent = ''; $('forgot-ok').textContent = '';
+  const { error } = await sb.auth.resetPasswordForEmail($('forgot-email').value.trim(), { redirectTo: location.origin + location.pathname });
+  if (error) $('forgot-err').textContent = error.message; else $('forgot-ok').textContent = 'Check your email for a link to set a new password.';
+});
+$('setpw-form').addEventListener('submit', async (e) => {
+  e.preventDefault(); $('setpw-err').textContent = '';
+  const { error } = await sb.auth.updateUser({ password: $('newpw').value });
+  if (error) { $('setpw-err').textContent = error.message; return; }
+  history.replaceState(null, '', location.pathname);
+  const { data: { session } } = await sb.auth.getSession(); enter(session);
+});
+$('signout-btn').addEventListener('click', async () => { await sb.auth.signOut(); location.reload(); });
+$('denied-out').addEventListener('click', async () => { await sb.auth.signOut(); location.reload(); });
+$('refresh-btn').addEventListener('click', refreshNow);
+
+const linkType = new URLSearchParams(location.hash.slice(1)).get('type');
+sb.auth.onAuthStateChange((event) => { if (event === 'PASSWORD_RECOVERY') { show('login'); loginView('setpw-view'); } });
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session && (linkType === 'invite' || linkType === 'recovery')) { show('login'); loginView('setpw-view'); return; }
+  if (session) enter(session); else { show('login'); loginView('signin-view'); }
+})();
+</script>
+</body>
+</html>
