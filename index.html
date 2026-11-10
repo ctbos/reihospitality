@@ -11,19 +11,19 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>REI Hospitality — Restaurant &amp; Brewery Consulting, Build-Outs &amp; AI Systems</title>
-<meta name="description" content="REI Hospitality plans, builds, and wires up restaurants & breweries — new build-outs, AI automation, and the operating systems that keep a room consistent long after open.">
+<title>REI Hospitality — Owner's Rep &amp; Construction Management for Restaurants &amp; Breweries</title>
+<meta name="description" content="REI Hospitality is the owner's rep for restaurant & brewery builds — construction management from site selection and permitting through bids, build, and opening day.">
 <link rel="canonical" href="https://reihospitality.com/">
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://reihospitality.com/">
 <meta property="og:title" content="REI Hospitality — Building hospitality better.">
-<meta property="og:description" content="Restaurant & brewery consulting, new build-outs, AI automation, and the operating systems that keep a room consistent long after open.">
+<meta property="og:description" content="Owner's rep and construction management for restaurant & brewery build-outs, from site selection and permitting through bids, build, and opening day.">
 <meta property="og:site_name" content="REI Hospitality">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="REI Hospitality — Building hospitality better.">
-<meta name="twitter:description" content="Restaurant & brewery consulting, new build-outs, AI automation, and the operating systems that keep a room consistent long after open.">
+<meta name="twitter:description" content="Owner's rep and construction management for restaurant & brewery build-outs, from site selection and permitting through bids, build, and opening day.">
 
 <!-- Favicon: dark tile + red mark -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23241c15'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-weight='700' font-size='30' letter-spacing='-2' fill='%23f4efe6' text-anchor='middle'%3EREI%3C/text%3E%3C/svg%3E">
@@ -45,8 +45,11 @@
   button.submit:hover{ background:#000; }
   button.submit:disabled{ opacity:.6; cursor:default; }
 
+  .phase{ border-top:1px solid #4a3f31; padding-top:18px; }
   /* ---- Responsive ---- */
   @media (max-width: 860px){
+    .phase-grid{ grid-template-columns:1fr 1fr !important; }
+    .pitfall-grid{ grid-template-columns:1fr !important; }
     .wrap{ padding-left:24px !important; padding-right:24px !important; }
     .hero{ padding-top:48px !important; padding-bottom:44px !important; }
     .hero-grid{ grid-template-columns:1fr !important; gap:36px !important; }
@@ -59,6 +62,9 @@
     .form-row{ grid-template-columns:1fr !important; }
     .footer-inner{ flex-direction:column; align-items:flex-start !important; gap:24px !important; }
     .room-band img{ height:260px !important; }
+  }
+  @media (max-width: 560px){
+    .phase-grid{ grid-template-columns:1fr !important; }
   }
   @media (max-width: 480px){
     .h1{ font-size:34px !important; }
@@ -94,16 +100,16 @@
   <section id="top" class="wrap hero" style="max-width:1160px; margin:0 auto; padding:76px 40px 64px;">
     <div class="hero-grid" style="display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.22em; color:#e8412b; margin-bottom:24px;">RESTAURANT &amp; BREWERY CONSULTING · BUILD-OUT · AI &amp; SYSTEMS</div>
-        <h1 class="h1" style="font-weight:700; font-size:62px; line-height:1.0; letter-spacing:-0.04em; margin:0 0 26px;">From blueprint to a room full of regulars<span style="color:#e8412b;">.</span></h1>
-        <p style="font-size:18px; line-height:1.6; color:#46413a; margin:0 0 36px; max-width:520px;">REI Hospitality helps restaurants and breweries get built right and run well — from concept and build-out to the systems, smart tooling, and day-to-day operations that keep the room full long after opening night.</p>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.22em; color:#e8412b; margin-bottom:24px;">OWNER'S REP · CONSTRUCTION MANAGEMENT</div>
+        <h1 class="h1" style="font-weight:700; font-size:62px; line-height:1.0; letter-spacing:-0.04em; margin:0 0 26px;">The owner's rep for restaurant &amp; brewery builds<span style="color:#e8412b;">.</span></h1>
+        <p style="font-size:18px; line-height:1.6; color:#46413a; margin:0 0 36px; max-width:520px;">REI Hospitality manages your build from the owner's side of the table — site and lease, permits, bids, construction, and opening day. Run by an operator who has built these rooms himself, so you get a straight read on the schedule, the budget, and the contractor.</p>
         <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap;">
           <a class="cta" href="#contact" style="text-decoration:none; font-size:14px; font-weight:500; letter-spacing:0.04em; color:#f4efe6; background:#241c15; padding:15px 28px; border-radius:3px;">Let's talk</a>
-          <a href="services.html" style="text-decoration:none; font-size:14px; font-weight:500; color:#241c15; border-bottom:2px solid #e8412b; padding-bottom:3px;">See services</a>
+          <a href="services.html" style="text-decoration:none; font-size:14px; font-weight:500; color:#241c15; border-bottom:2px solid #e8412b; padding-bottom:3px;">See how a build runs</a>
         </div>
       </div>
       <div class="hero-art" style="aspect-ratio:4/5; border-radius:4px; overflow:hidden; background:#241c15;">
-        <img src="hero.jpg" alt="Guests filling the dining room at Elicit Brewing in Fairfield — a restaurant and brewery built by REI Hospitality" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <img src="hero.jpg" alt="Elicit Brewing in Fairfield, CT — a brewpub built by REI Hospitality's founder" style="width:100%; height:100%; object-fit:cover; display:block;">
       </div>
     </div>
   </section>
@@ -120,6 +126,21 @@
     </div>
   </section>
 
+  <!-- CREDENTIALS -->
+  <section class="wrap" style="max-width:1160px; margin:0 auto; padding:48px 40px 0;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px;">
+      <div style="border-top:2px solid #241c15; padding-top:16px;">
+        <div style="font-weight:700; font-size:46px; letter-spacing:-0.04em; line-height:1;">5</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em; color:#6b6357; margin-top:10px; line-height:1.6;">LARGE VENUE BUILDS AS OWNER, GC &amp; OPERATOR</div>
+      </div>
+      <div style="border-top:2px solid #241c15; padding-top:16px;">
+        <div style="font-weight:700; font-size:46px; letter-spacing:-0.04em; line-height:1;">3</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em; color:#6b6357; margin-top:10px; line-height:1.6;">ELICIT BREWPUBS BUILT FROM THE GROUND UP</div>
+      </div>
+      <!-- TODO (Ellis): optional third proof point, e.g. total sq ft built, total construction budget managed, or years in construction. Copy the block above and fill in. -->
+    </div>
+  </section>
+
   <!-- ROOM BAND PHOTO -->
   <section class="wrap room-band" style="max-width:1160px; margin:0 auto; padding:40px 40px 0;">
     <div style="border-radius:4px; overflow:hidden;">
@@ -130,42 +151,108 @@
   <!-- SERVICES -->
   <section id="services" class="wrap services" style="max-width:1160px; margin:0 auto; padding:64px 40px 64px; scroll-margin-top:80px;">
     <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:14px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#e8412b;">01</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#a0978a;">WHAT WE DO</span></div>
-    <h2 class="h2" style="font-weight:700; font-size:42px; line-height:1.04; letter-spacing:-0.03em; margin:0 0 48px; max-width:680px;">Built to open right. Built to keep running.</h2>
+    <h2 class="h2" style="font-weight:700; font-size:42px; line-height:1.04; letter-spacing:-0.03em; margin:0 0 18px; max-width:720px;">On your side of the table, from lease to opening day.</h2>
+    <p style="font-size:16px; line-height:1.65; color:#46413a; margin:0 0 48px; max-width:720px;">The architect, the contractor, and the landlord all have their own interests. An owner's rep has one job: protect yours. REI manages the whole build on your behalf, so you can stay focused on the concept and the team.</p>
 
-    <div class="services-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-bottom:48px;">
+    <div class="services-grid" style="display:grid; grid-template-columns:1.15fr .85fr; gap:24px; margin-bottom:48px;">
       <div style="background:#fff; border:1px solid #e6ddcb; border-radius:4px; padding:34px;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; color:#e8412b; margin-bottom:16px;">01 · BUILD-OUTS</div>
-        <h3 style="font-weight:700; font-size:22px; letter-spacing:-0.02em; margin:0 0 10px;">From blueprint to open</h3>
-        <p style="font-size:14px; line-height:1.55; color:#6b6357; margin:0 0 20px;">Restaurants and breweries planned, permitted, and built to run — not just to open.</p>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; color:#e8412b; margin-bottom:16px;">01 · OWNER'S REP &amp; CONSTRUCTION MANAGEMENT</div>
+        <h3 style="font-weight:700; font-size:22px; letter-spacing:-0.02em; margin:0 0 10px;">Your build, managed</h3>
+        <p style="font-size:14px; line-height:1.55; color:#6b6357; margin:0 0 20px;">Restaurants and breweries planned, permitted, bid, and built to run — not just to open.</p>
         <div style="display:flex; flex-direction:column; gap:9px;">
           <div style="font-size:13px; color:#241c15; font-weight:700; border-top:1px solid #f1ece2; padding-top:9px;">Construction &amp; pre-construction management</div>
+          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Contractor selection, bid leveling &amp; contract review</div>
+          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Budget, schedule &amp; change-order control</div>
           <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Site selection, feasibility &amp; pro formas</div>
-          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Layout &amp; design — kitchen, bar &amp; brewery</div>
-          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Equipment selection &amp; build management</div>
+          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Layout &amp; design coordination — kitchen, bar &amp; brewery</div>
+          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Equipment selection &amp; install</div>
           <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Licensing — TTB, liquor &amp; zoning/building</div>
         </div>
       </div>
       <div style="background:#fff; border:1px solid #e6ddcb; border-radius:4px; padding:34px;">
         <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; color:#e8412b; margin-bottom:16px;">02 · ONCE YOU'RE OPEN</div>
-        <h3 style="font-weight:700; font-size:22px; letter-spacing:-0.02em; margin:0 0 10px;">The systems that keep it running</h3>
-        <p style="font-size:14px; line-height:1.55; color:#6b6357; margin:0 0 20px;">The operating systems, smart tooling, and day-to-day support that keep a room consistent long after opening night.</p>
+        <h3 style="font-weight:700; font-size:22px; letter-spacing:-0.02em; margin:0 0 10px;">Support after the ribbon</h3>
+        <p style="font-size:14px; line-height:1.55; color:#6b6357; margin:0 0 20px;">A lighter layer of operating support for rooms that are open and need to run tighter.</p>
         <div style="display:flex; flex-direction:column; gap:9px;">
           <div style="font-size:13px; color:#241c15; font-weight:700; border-top:1px solid #f1ece2; padding-top:9px;">Kitchen additions for breweries without one</div>
           <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">SOPs, training &amp; opening playbooks</div>
-          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">POS, tech stack &amp; smart automation</div>
-          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Costing, P&amp;L &amp; menu engineering</div>
-          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Vendor &amp; sourcing support</div>
+          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">POS &amp; tech stack</div>
+          <div style="font-size:13px; color:#46413a; border-top:1px solid #f1ece2; padding-top:9px;">Costing, P&amp;L, menu &amp; vendor support</div>
         </div>
       </div>
     </div>
 
     <div style="border-top:1px solid #e6ddcb; padding-top:24px; display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
-      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; color:#a0978a; margin-right:8px;">AND IF YOU NEED MORE</span>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; color:#a0978a; margin-right:8px;">ALSO</span>
       <span style="font-size:13px; color:#f4efe6; background:#e8412b; font-weight:700; padding:7px 14px; border-radius:20px;">Breweries &amp; brew pubs</span>
-      <span style="font-size:13px; color:#241c15; background:#e6dfd0; padding:7px 14px; border-radius:20px;">Turnarounds</span>
+      <span style="font-size:13px; color:#241c15; background:#e6dfd0; padding:7px 14px; border-radius:20px;">Renovations &amp; expansions</span>
       <span style="font-size:13px; color:#241c15; background:#e6dfd0; padding:7px 14px; border-radius:20px;">Second locations</span>
-      <span style="font-size:13px; color:#241c15; background:#e6dfd0; padding:7px 14px; border-radius:20px;">Custom AI &amp; automation projects</span>
-      <span style="font-size:13px; color:#241c15; background:#e6dfd0; padding:7px 14px; border-radius:20px;">Virtual sports &amp; entertainment concepts</span>
+      <span style="font-size:13px; color:#241c15; background:#e6dfd0; padding:7px 14px; border-radius:20px;">Turnarounds</span>
+    </div>
+  </section>
+
+  <!-- HOW A BUILD RUNS -->
+  <section id="process" style="background:#241c15; color:#cfc2ad;">
+    <div class="wrap" style="max-width:1160px; margin:0 auto; padding:72px 40px;">
+      <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:14px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#e8412b;">02</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#a89a80;">HOW A BUILD RUNS</span></div>
+      <h2 class="h2" style="font-weight:700; font-size:42px; line-height:1.04; letter-spacing:-0.03em; color:#f4efe6; margin:0 0 48px; max-width:720px;">Six phases. One person watching all of them.</h2>
+      <div class="phase-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:36px 32px;">
+        <div class="phase">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#e8412b; margin-bottom:10px;">01</div>
+          <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; color:#f4efe6; margin:0 0 8px;">Feasibility &amp; site</h3>
+          <p style="font-size:14px; line-height:1.6; color:#a89a80; margin:0;">Sites and lease terms get tested against build-out cost and the pro forma before you sign anything.</p>
+        </div>
+        <div class="phase">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#e8412b; margin-bottom:10px;">02</div>
+          <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; color:#f4efe6; margin:0 0 8px;">Design &amp; permitting</h3>
+          <p style="font-size:14px; line-height:1.6; color:#a89a80; margin:0;">Layout, architect and engineer coordination, and zoning, building, health, and liquor/TTB filings tracked to your open date.</p>
+        </div>
+        <div class="phase">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#e8412b; margin-bottom:10px;">03</div>
+          <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; color:#f4efe6; margin:0 0 8px;">Bidding &amp; contracts</h3>
+          <p style="font-size:14px; line-height:1.6; color:#a89a80; margin:0;">A clear bid package, bids leveled side by side, and contract terms reviewed from the owner's side.</p>
+        </div>
+        <div class="phase">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#e8412b; margin-bottom:10px;">04</div>
+          <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; color:#f4efe6; margin:0 0 8px;">Construction</h3>
+          <p style="font-size:14px; line-height:1.6; color:#a89a80; margin:0;">Site meetings, schedule and budget tracking, change orders, and pay-application review while the work is going up.</p>
+        </div>
+        <div class="phase">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#e8412b; margin-bottom:10px;">05</div>
+          <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; color:#f4efe6; margin:0 0 8px;">Equipment &amp; fit-out</h3>
+          <p style="font-size:14px; line-height:1.6; color:#a89a80; margin:0;">Specs, vendors, and lead times matched to the menu, with install coordinated around the trades.</p>
+        </div>
+        <div class="phase">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#e8412b; margin-bottom:10px;">06</div>
+          <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; color:#f4efe6; margin:0 0 8px;">Punch list &amp; opening</h3>
+          <p style="font-size:14px; line-height:1.6; color:#a89a80; margin:0;">Inspections, punch list, closeout documents, and a clean handoff to the team that runs the room.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT TRIPS UP OPERATORS -->
+  <section id="pitfalls" class="wrap" style="max-width:1160px; margin:0 auto; padding:72px 40px 64px; scroll-margin-top:80px;">
+    <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:14px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#e8412b;">03</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#a0978a;">WHAT TRIPS UP OPERATORS</span></div>
+    <h2 class="h2" style="font-weight:700; font-size:42px; line-height:1.04; letter-spacing:-0.03em; margin:0 0 18px; max-width:720px;">The things that get expensive before you open.</h2>
+    <p style="font-size:16px; line-height:1.65; color:#46413a; margin:0 0 40px; max-width:720px;">First-time operators trip on these, and so do long-standing operators getting into the finer points of a build-out. Each one is cheaper to catch early than to fix later.</p>
+    <div class="pitfall-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
+      <div style="background:#fff; border:1px solid #e6ddcb; border-radius:4px; padding:28px;">
+        <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px;">Parking ratios</h3>
+        <p style="font-size:14px; line-height:1.6; color:#6b6357; margin:0;">Zoning can limit your seat count before a floor plan exists. It gets checked before the lease is signed.</p>
+      </div>
+      <div style="background:#fff; border:1px solid #e6ddcb; border-radius:4px; padding:28px;">
+        <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px;">TI allowance timing</h3>
+        <p style="font-size:14px; line-height:1.6; color:#6b6357; margin:0;">When landlord money is paid, and what has to happen first, decides how much of the build you float yourself.</p>
+      </div>
+      <div style="background:#fff; border:1px solid #e6ddcb; border-radius:4px; padding:28px;">
+        <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px;">Store layout</h3>
+        <p style="font-size:14px; line-height:1.6; color:#6b6357; margin:0;">A layout has to work on a Friday night, not just in the rendering — kitchen line, service path, bar, and storage.</p>
+      </div>
+      <div style="background:#fff; border:1px solid #e6ddcb; border-radius:4px; padding:28px;">
+        <h3 style="font-weight:700; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px;">Contractor management</h3>
+        <p style="font-size:14px; line-height:1.6; color:#6b6357; margin:0;">Bids, change orders, schedules, and pay applications need someone watching them for you, every week.</p>
+      </div>
     </div>
   </section>
 
@@ -183,7 +270,7 @@
 
   <!-- CONTACT -->
   <section id="contact" class="wrap" style="max-width:1160px; margin:0 auto; padding:84px 40px 72px; scroll-margin-top:80px;">
-    <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:14px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#e8412b;">02</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#a0978a;">LET'S TALK</span></div>
+    <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:14px;"><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#e8412b;">04</span><span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; color:#a0978a;">LET'S TALK</span></div>
     <h2 class="h2" style="font-weight:700; font-size:42px; line-height:1.04; letter-spacing:-0.03em; margin:0 0 48px; max-width:680px;">Tell me what you're building.</h2>
 
     <div class="contact-grid" style="display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:start;">
@@ -215,15 +302,16 @@
           <div style="margin-bottom:18px;">
             <label for="f-need" style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a0978a; margin-bottom:8px;">WHAT YOU NEED</label>
             <select id="f-need" name="what_you_need" style="width:100%; padding:12px 14px; font-size:14px; color:#241c15; background:#f4efe6; border:1px solid #e6ddcb; border-radius:3px;">
-              <option>New build-out</option>
-              <option>Systems, tooling &amp; ops (already open)</option>
+              <option>Owner's rep for a new build-out</option>
+              <option>Renovation, expansion or kitchen addition</option>
+              <option>Support for a room that's already open</option>
               <option>Something else</option>
               <option>Not sure yet</option>
             </select>
           </div>
           <div style="margin-bottom:24px;">
             <label for="f-project" style="display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.14em; color:#a0978a; margin-bottom:8px;">THE PROJECT</label>
-            <textarea id="f-project" name="project" rows="4" placeholder="A few lines on the space, the timeline, and where you're stuck." style="width:100%; padding:12px 14px; font-size:14px; line-height:1.5; color:#241c15; background:#f4efe6; border:1px solid #e6ddcb; border-radius:3px; resize:vertical;"></textarea>
+            <textarea id="f-project" name="project" rows="4" placeholder="A few lines on the space, the timeline, and where you are in the process." style="width:100%; padding:12px 14px; font-size:14px; line-height:1.5; color:#241c15; background:#f4efe6; border:1px solid #e6ddcb; border-radius:3px; resize:vertical;"></textarea>
           </div>
           <button class="submit" type="submit" style="width:100%; padding:15px; font-size:14px; font-weight:500; letter-spacing:0.04em; color:#f4efe6; background:#241c15; border:none; border-radius:3px; cursor:pointer;">Send it over</button>
           <p id="formError" role="alert" style="display:none; margin:14px 0 0; font-size:13px; line-height:1.5; color:#b5301f;"></p>
@@ -250,10 +338,6 @@
           <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.16em; color:#5a4f40; margin-bottom:10px;">FREE TOOLS</div>
           <div style="font-size:13px;"><a href="/scorecard" style="color:#cfc2ad; text-decoration:none;">Financial Health Scorecard</a></div>
           <div style="font-size:13px; margin-top:6px;"><a href="/playbook" style="color:#cfc2ad; text-decoration:none;">Pre-Opening Playbook</a></div>
-        </div>
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.16em; color:#5a4f40; margin-bottom:10px;">WORK</div>
-          <div style="font-size:13px; color:#cfc2ad;">chef mike<span style="color:#a86b3c;">.</span> <span style="color:#6b6357;">— coming soon</span></div>
         </div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; color:#5a4f40;">© 2026 REI HOSPITALITY</div>
       </div>
